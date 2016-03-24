@@ -1,0 +1,238 @@
+%        File: hw3.tex
+%     Created: Tue Mar 22 12:00 PM 2016 C
+% Last Change: Tue Mar 22 12:00 PM 2016 C
+%
+
+\documentclass[a4paper]{article}
+
+\title{Math 8402 Homework 3 }
+\date{4/4/16}
+\author{Trevor Steil}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{bigints}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem*{claim}{Claim}
+\newtheorem*{problem}{Problem}
+%\newtheorem*{lemma}{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\supp}[1]{\mathop{\mathrm{supp}}\left(#1\right)}
+\newcommand{\lip}[1]{\mathop{\mathrm{Lip}}\left(#1\right)}
+\newcommand{\curl}{\mathrm{curl}}
+\newcommand{\la}{\left \langle}
+\newcommand{\ra}{\right \rangle}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\newenvironment{solution}{\emph{Solution.}}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+  \item \begin{problem}
+      Consider
+      \[ y'' + \varepsilon f(y,y') + y = 0, t>0 \]
+      where $\varepsilon$ is small and $f$ is some smooth function.
+      \begin{enumerate}
+        \item Use the multiple time scale expansion:
+          \[ y = y_0(t_1, t_2) + \varepsilon y_1(t_1, t_2) + \dots ,
+          t_1 = t, t_2 = \varepsilon t \]
+          and show that $y_0$ can be written as:
+          \[ y_0 = A(t_2) cos(\tau), \tau = t_1 + \phi(t_2) \]
+          where $\phi(t_2)$ is some function of $t_2$.
+
+        \item Show that the $O(\varepsilon)$ equation is
+          \[ \frac{\partial^2 y_1}{\partial t_1^2} + y_1 = 2 \left(
+            \frac{\partial A}{\partial t_2} \sin \tau +
+            A \frac{\partial \phi}{\partial t_2} \cos \tau \right)
+          - f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) \]
+
+        \item In order to avoid secular terms, show that the conditions to be
+          satisfied are:
+          \[ \frac{\partial A}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) \sin \tau d \tau \]
+          and
+          \[ A \frac{\partial \phi}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) \cos \tau d \tau .\]
+
+        \item Use the above result to discuss the steady state and limit cycle when $f - (y^4 - 1) y'$.
+
+      \end{enumerate}
+
+    \end{problem}
+
+    \begin{solution}
+      \begin{enumerate}
+        \item
+          First, we will express $y$ using multiple time scales as
+          \[ y = y(t_1, t_2) \]
+          with $t_1 = t$ and $t_2 = \varepsilon t$. Taking derivatives we get
+          \[ y' = \frac{\partial y}{\partial t_1} + \varepsilon \frac{\partial y}{\partial t_2} \]
+          and
+          \[ y'' = \frac{\partial^2 y}{\partial t_1^2} + 2 \varepsilon \frac{\partial^2 y}{ \partial
+          t_1 \partial t_2} + \varepsilon^2 \frac{\partial^2}{\partial t_2^2} .\]
+          Next, we expand $y$ asymptotically as
+          \[ y = y_0(t_1,t_2) +\varepsilon y_1(t_1,t_2) + \dots .\]
+
+          Plugging the derivatives of our expanded solution into the differential equation, we get
+          the $O(1)$ equation
+          \[ \frac{\partial^2 y_0}{\partial t_1^2} + y_0 = 0 .\]
+          This ODE has solutions of the form
+          \[ y_0 = a(t_2) \sin t_1 + b(t_2) \cos t_1 .\]
+          Now we define
+          \[ A(t_2) = \sqrt{a(t_2)^2 + b(t_2)^2} \]
+          and
+          \[ \phi(t_2) = \tan^{-1} \left( \frac{a(t_2)}{b(t_2)} \right) .\]
+          Then
+          \[ a(t_2) = A(t_2) \sin( \phi(t_2)) ,\]
+          \[ b(t_2) = A(t_2) \cos( \phi(t_2)) .\]
+          So we can write $y_0$ as
+          \begin{align*}
+            y_0 &= A(t_2) \sin(\phi(t_2)) \sin t_1 + A(t_1) \cos(\phi(t_2)) \cos t_1 \\
+            &= A(t_2) \cos( t_1 + \phi(t_2))
+          \end{align*}
+
+        \item
+          We see that by expanding $f$ in terms of its Taylor series we get
+          \begin{align*}
+            f(y, y') &= f \left (y_0 + \varepsilon y_1 + \dots, y_0' + \varepsilon y_1' + \dots \right) \quad \text{where derivatives are with respect to $t$} \\
+            &= f \left( y_0, \frac{\partial y_0}{\partial t} \right)+ O(\varepsilon) \\
+            &= f \left( y_0, \frac{\partial y_0}{\partial t_1} + \varepsilon \frac{\partial y_0}{\partial t_2} \right) \\
+            &= f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) + O(\varepsilon)
+          \end{align*}
+
+          Plugging in the derivatives of our expansion of $y$ and the Taylor series of $f$ into our equation, we get the $O(\varepsilon)$ equation
+          \[ \frac{\partial^2 y_1}{\partial t_1^2} + 2 \frac{\partial^2 y_0}{\partial t_1 \partial t_2} + f \left( y_0, y_0' \right) + y_1 = 0 \]
+
+          We already found $y_0$, so from here, we can calculate
+          \begin{align*}
+            \frac{\partial^2 y_0}{\partial t_2 \partial t_2} &= \frac{\partial^2}{\partial t_1 \partial t_2} \big( A(t_2) \cos(t_1 + \phi(t_2) \big) \\
+            &= \frac{\partial}{\partial t_1} \left( \frac{\partial A}{\partial t_2} \cos(t_1 + \phi(t_2)) - A \frac{\partial \phi}{\partial t_2}
+            \sin(t_1 + \phi(t_2)) \right) \\
+            &= -\frac{\partial A}{\partial t_2} \sin(t_1 + \phi(t_2)) - A \frac{\partial \phi}{\partial t_2}
+            \cos(t_1 + \phi(t_2)) \\
+            &= -\frac{\partial A}{\partial t_2} \sin \tau - A \frac{\partial \phi}{\partial t_2}
+            \cos \tau
+          \end{align*}
+
+          This simplifies our $O(\varepsilon)$ equation to
+          \[ \frac{\partial^2 y_1}{\partial t_1^2} + y_1 = 2 \left( \frac{\partial A}{\partial t_2} \sin \tau + A \frac{\partial \phi}{\partial t_2}
+          \cos \tau \right) - f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) .\]
+
+        \item
+          The differential equation we have is on ODE in $t_1$. By avoiding secular terms we want to get a solution that is $2 \pi$-periodic in $t_1$.
+          Assume $u$ is a solution to
+          \[ \frac{\partial^2 u}{\partial t_1^2} + u = 0 .\]
+
+          For convenience, we will write the operator $L = \frac{\partial^2}{\partial t_1^2} + 1$ and denote $(.,.)_{L^2(0,2\pi)}$ as $(.,)$. Then we have
+          \begin{align*}
+            (L y_1, u) &= (y_1, Lu) \quad \text{integrating by parts twice} \\
+            &= (y_1, Au) \\
+            &= (y_1, 0) \\
+            &= 0
+          \end{align*}
+          So $y_1$ must be orthogonal in $L^2(0,2\pi)$ to all solutions of $Lu = 0$.
+
+          We have that $\cos t_1$ and $\sin t_1$ form a basis for $\{ u | Lu=0\}$. We can add any phase to these basis functions, so we will use
+          $\cos (t_1 + \phi(t_2))$ and $\sin (t_1 + \phi(t_2))$ as our basis. Using our expression for $L y_1$, we require that
+          \[ 0 = \bigintss_{0}^{2 \pi} \left[ 2 \left( \frac{\partial A}{\partial t_2} \sin (t_1 + \phi(t_2)) + A \frac{\partial \phi}{\partial t_2}
+          \cos( t_1 + \phi(t_2)) \right) - f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) \right] \sin( t_1 + \phi(t_2)) dt_1 \]
+          and
+          \[ 0 = \bigintss_{0}^{2 \pi} \left[ 2 \left( \frac{\partial A}{\partial t_2} \sin (t_1 + \phi(t_2)) + A \frac{\partial \phi}{\partial t_2}
+          \cos( t_1 + \phi(t_2)) \right) - f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) \right] \cos( t_1 + \phi(t_2)) dt_1 \]
+          Using the fact that $\int_{0}^{2 \pi} \cos^2 x dx = \int_{0}^{2 \pi} \sin^2 x dx = \pi$ and $\int_{0}^{2 \pi} \sin x \cos x dx = 0$, these
+          conditions simplify to
+          \[ \frac{\partial A}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{ \partial t_1} \right) \sin (t_1 +
+          \phi(t_2)) dt_1 \]
+          and
+          \[ A \frac{\partial \phi}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{ \partial t_1} \right) \cos (t_1 +
+          \phi(t_2)) dt_1 \]
+
+
+        \item
+      \end{enumerate}
+
+    \end{solution}
+
+  \item Holmes 3.35 \begin{problem}
+      Consider the problem
+      \[ \frac{d}{dt} \left( D(\varepsilon t) \frac{dy}{dt} \right) + y = 0 \quad \text{for } 0<t ,\]
+      where $y(0) = \alpha$ and $y'(0)=\beta$. The coefficient $D(\tau)$ is a
+      smooth positive function with $D' > 0$. Find a first term approximation
+      of the solution valid for large $t$.
+    \end{problem}
+
+    \begin{solution}
+    \end{solution}
+
+  \item Holmes 4.19 \begin{problem}
+      This problem concerns the Schr\"{o}dinger equation in 4.67 and the potential shown in Fig.
+      4.8. Because $V(x)$ acts like a barrier, this example is commonly used to illustrate the
+      phenomenon of tunneling.
+      \begin{enumerate}
+        \item Using 4.48 and 4.57, find a first-term approximation of the solution of 4.67 in the
+          case of the barrier potential shown in fig. 4.8. Assume $E$ is given and satisfies
+          $0<E<V_M$, where $V_M = \max_{-\infty < x < \infty} V(x)$ and $V(-\infty) = V(\infty) = 0$.
+
+        \item The time-dependent Schr\"{o}dinger equation has the form
+          \[ -\varepsilon^2 \partial_x^2 \Psi + V \Psi = i \partial_t \Psi .\]
+          In regard to the barrier potential, suppose a wave approaches from the left. Because of
+          reflection from the barrier, the solution should then consist of left and right travelling
+          waves in the region $x<a$. However, part of the incident wave will be transmitted through
+          the barrier and result in a right-running wave for $x>b$ (this is the phenomenon of
+          tunneling). Assuming $\Psi = \exp(-iEt) \psi(x)$, use the results from part (a) to find
+          first-term approximations of the waves in these two regions.
+      \end{enumerate}
+    \end{problem}
+
+    \begin{solution}
+      \begin{enumerate}
+        \item
+
+        \item
+      \end{enumerate}
+
+    \end{solution}
+
+  \item Holmes 4.35 \begin{problem}
+      The equation for a slender membrane with small damping is
+      \[ \varepsilon^2 u_{xx} + u_{yy} = \mu^2(x) u_{tt} + \varepsilon \alpha(x) u_t
+        \quad \text{ for }
+        \begin{cases}
+          0<x<\infty \\
+          0<y<1,
+      \end{cases} \]
+      where $u(x,0,t) = u(x,1,t) = 0, u(0,y,t) = f(y) \cos(\omega t)$ and $u(x,y,t)$ is bounded as
+      $x \to \infty$. Assume $\mu(x)$ and $\alpha(x)$ are positive and $\mu'<0$.
+
+      \begin{enumerate}
+        \item Use the WKB method to find an approximation of the long-time solution outside of the
+          transition region. you only need to find the general solution for each mode.
+
+        \item Assuming the turning point $x_t >0,$ find a first-term approximation in the transition
+          layer and match it to the solutions from part (a). Assume it is a simple turning point.
+
+      \end{enumerate}
+    \end{problem}
+
+    \begin{solution}
+
+      \begin{enumerate}
+        \item
+
+        \item
+      \end{enumerate}
+
+    \end{solution}
+\end{enumerate}
+\end{document}
+
+

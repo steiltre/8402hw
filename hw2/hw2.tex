@@ -1,0 +1,441 @@
+%        File: hw2.tex
+%     Created: Fri Feb 19 06:00 PM 2016 C
+% Last Change: Fri Feb 19 06:00 PM 2016 C
+%
+
+\documentclass[a4paper]{article}
+
+\title{Math 8402 Homework 2 }
+\date{2/29/16}
+\author{Trevor Steil}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem*{claim}{Claim}
+\newtheorem*{problem}{Problem}
+%\newtheorem*{lemma}{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\supp}[1]{\mathop{\mathrm{supp}}\left(#1\right)}
+\newcommand{\lip}[1]{\mathop{\mathrm{Lip}}\left(#1\right)}
+\newcommand{\la}{\left \langle}
+\newcommand{\ra}{\right \rangle}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\newenvironment{solution}{\emph{Solution.}}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+  \item 
+    \begin{enumerate}
+      \item Holmes 2.1 
+	\begin{problem}
+	  The Friedrichs model problem for a boundary layer in a viscous fluid is
+	  \[ \varepsilon y'' = a - y' \text{ for } 0 < x < 1, \]
+	  where $y(0) = 0$, $y(1)=1$, and $a$ is a given positive constant with $a \not= 1$.
+	  \begin{enumerate}
+	    \item After finding the first term of the inner and outer expansions, derive a composite expansion of the solution of this problem.
+
+	    \item Derive a two-term composite expansion of the solution of this problem.
+	  \end{enumerate}
+	\end{problem}
+
+	\begin{solution}
+	  \begin{enumerate}
+	    \item We will assume we have a solution of the form
+	      \[y = y_0 + \varepsilon^\alpha y_1 + \dots \]
+	      Plugging this into our equation gives
+	      \[ \varepsilon (y_0'' + \varepsilon^\alpha y_1'' + \dots) = a - (y_0' + \varepsilon^\alpha y_1' + \dots) \]
+
+	      So our $O(1)$ equation is
+	      \[ y_0' = a \]
+	      with the boundary conditions $y_0(0) = 0, y_0(1)=1$. Our solution to the differential equation is of the form $y_0(x) = ax+b$. Because $a \not=1$, we can only satisfy one of the boundary conditions. We see that if $b=1-a$, then $y_0(1) = 1$, and we satisfy the boundary condition at $x=1$. So we will assume $y_0(x) = ax + 1 - a$ and we have a boundary layer at $x=0$.
+
+	      Now we must come up with our boundary layer solution. We begin by introducing our boundary layer coordinates
+	      \[ \bar{x} = \frac{x}{\varepsilon^\beta} .\]
+	      We now our boundary layer solution as $Y(\bar{x}) = y(x)$. Plugging this into our differential equation, we have
+	      \[ \varepsilon^{1-2\beta} Y'' = a - \varepsilon^{-\beta} Y' \]
+	      with the boundary condition $Y(0) = 0$. Now we expand our boundary layer solution as $Y = Y_0 + \varepsilon^\gamma Y_1 + \dots$ to give
+	      \[ \varepsilon^{1-2\beta} ( Y_0'' + \varepsilon^\gamma Y_1'' + \dots) = a - \varepsilon^{-\beta} ( Y_0' + \varepsilon^\gamma Y_1' + \dots).\]
+	      Now we must determine how to balance the terms. If we set $\beta = \frac{1}{2}$, then we balance the $Y_0''$ and $a$ terms, but this leaves $\varepsilon^{-1/2} Y_0'$, which is lower order. So we do not want to balance in this way. Instead we will choose $\beta=1$ to balance the $Y_0''$ and $Y_0'$ terms, leaving all other terms as higher order.
+
+	      So we have the $O(\frac{1}{\varepsilon})$ equation
+	      \[ Y_0'' = - Y_0' \]
+	      with the boundary condition $Y_0(0) = 0$.
+	      Our solution is of the form
+	      \[ Y_0(\bar{x}) = C e^{-\bar{x}} + D . \]
+	      By our boundary condition, we see $C+D=1$.
+
+	      Now we must match our outer solution to our boundary layer solution to determine $C$ and $D$. We require that
+	      \[ \lim_{x \to 0} y_0(x) = \lim_{\bar{x} \to \infty} Y_0(\bar{x}) .\]
+	      Evaluating these limits, we find
+	      \[ 1-a = D .\]
+	      Because we already knew $C + D = 1$, we know $C = a$. Thus our boundary layer solution is
+	      \[ Y_0(\bar{x}) = a e^{-\bar{x}} + 1-a .\]
+	      Combining our outer and boundary layer solutions gives us the composite expansion
+	      \[ y(x) = ax + a e^{-x/\varepsilon} + 1 - a .\]
+
+	    \item Looking at the next terms in our outer solution expansion, we see that in order to balance terms, we need to set $\alpha = 1$. This gives us the $O(\varepsilon)$ equation
+	      \[ y_0'' = - y_1' \]
+	      with the boundary condition $y_1(1) = 0$. Plugging in the $y_0$ we already found, we see that $y_1' = 0$. Therefore, $y_1 = 0$.
+
+	      Now we must find the next term of our boundary layer solution. By letting $\gamma = 1$, our $O(1)$ equation is
+	      \[ Y_1'' = a - Y_1' \]
+	      with the boundary condition $Y_1(0) = 0$. The solution we have is of the form
+	      \[ Y_1 = Ce^{-\bar{x}} + a\bar{x} + D .\]
+	      Satisfying the boundary condition requires $C+D = 0$.
+
+	      At this point our outer solution is
+	      \[ y_{outer}(x) = ax + 1 - a ,\]
+	      and our inner (or boundary layer) solution looks like
+	      \[ Y_{inner}(\bar{x}) = a e^{-\bar{x}} + 1 - a + \varepsilon \left( C e^{-\bar{x}} + a \bar{x} + D \right) .\]
+
+	      Now we introduce intermediate coordinates
+	      \[ x = \eta x_\eta = \varepsilon \bar{x} \]
+	      with $1 \gg \eta(\varepsilon) \gg \varepsilon$.
+	      Using these new coordinates, we can express our outer solution as
+	      \[ y_{outer} = a \eta x_\eta + 1 - a ,\]
+	      and our inner solution as
+	    \begin{align*}
+	    Y_{inner} &= a e^{- \frac{\eta}{\varepsilon} x_\eta} + 1 - a + \varepsilon \left( C e^{- \frac{\eta}{\varepsilon} x_\eta} + a \frac{\eta}{\varepsilon} x_\eta + D \right) \\
+	    &= a e^{-\frac{\eta}{\varepsilon} x_\eta} + 1 - a + \varepsilon C e^{-\frac{\eta}{\varepsilon} x_\eta} + a \eta x_\eta + D \varepsilon
+	  \end{align*}
+
+	  Comparing these two up to $O(\varepsilon)$, we see that $C=D=0$. So we get the inner solution
+	  \[ Y_{inner} = a e^{\bar{x}} + 1 - a + a \varepsilon \bar{x} .\]
+
+	  Combining the inner and outer solutions, we get
+	  \begin{align*}
+	    y &\sim ax + 1 - a + a e^{-x/\varepsilon} 
+	  \end{align*}
+
+	  \end{enumerate}
+	\end{solution}
+
+      \item Holmes 2.2 (a)
+	\begin{problem}
+	  Find a composite expansion of the solution of the following problem:
+	  \[ \varepsilon y'' + 2y' + y^3 = 0 \text{ for } 0 < x < 1,\]
+	  where $y(0) = 0$ and $y(1) = 1/2.$
+	\end{problem}
+
+	\begin{solution}
+
+	  First, we assume we can write our solution as
+	  \[ y = y_0 + \varepsilon^\alpha y_1 + \dots \]
+	  Plugging this into our differential equation gives
+	  \[ \varepsilon ( y_0'' + \varepsilon^\alpha y_1'' + \dots ) + 2( y_0' + \varepsilon^\alpha y_1' + \dots) + (y_0 + \varepsilon^\alpha y_1 + \dots)^3 = 0 .\]
+
+	  This gives us the $O(1)$ equation
+	  \[ 2 y_0' + y_0^3 = 0 \]
+	  with the boundary conditions $y_0(0) = 0$ and $y_0(1) = 1/2$.
+
+	  This equation is separable and gives solutions of the form
+	  \[ y_0^2 = \frac{1}{x + C} .\]
+
+	  From here we see that we cannot satisfy $y_0(0) = 0$. Using the boundary condition $y_0(1) = 1/2$, we find
+	  \[ y_0(x) = (x + 3)^{-1/2} .\]
+
+	  Now we introduce a boundary layer near $x = 0$ using the coordinates
+	  \[ \bar{x} = \frac{x}{\varepsilon^\beta} .\]
+	  We write our boundary layer solution as $Y(\bar{x}) = y(x)$ Plugging this into our differential equation gives
+	  \[ \varepsilon^{1-2\beta} Y'' + 2 \varepsilon^{-\beta} Y' + Y^3 = 0 .\]
+	  with the boundary condition $Y(0) = 0$.
+	  Now we expand our boundary layer solution as
+	  \[ Y = Y_0 + \varepsilon^\gamma Y_1 + \dots \]
+	  Our differential equation is now
+	  \[ \varepsilon^{1-2\beta} (Y_0'' + \varepsilon^\gamma Y_1'' + \dots ) + 2 \varepsilon^{-\beta} ( Y_0' + \varepsilon^\gamma Y_1' + \dots) + (Y_0 + \varepsilon^\gamma Y_1 + \dots)^3 = 0 .\]
+	\end{solution}
+	
+	Now we must balance terms. By choosing $\beta=1$, we balance our $Y_0''$ and $Y_0'$ and leave all other terms as higher order. This gives us the $O(\frac{1}{\varepsilon})$ equation
+	\[ Y_0'' + 2Y_0' = 0 \]
+	with the boundary condition $Y_0(0) = 0$.
+
+	This equation has solutions of the form
+	\[ Y_0(\bar{x}) = C e^{-2\bar{x}} + D \]
+	with $C+D = 0$.
+
+	Now we must match our outer layer solution to our boundary layer solution in order to determine $C$ and $D$. We require
+	\[ \lim_{x \to 0} y_0(x) = \lim_{\bar{x} \to \infty} Y_0(\bar{x}) .\]
+	Computing these limits, we require
+	\[ \frac{1}{\sqrt{3}} = D .\]
+	Therefore, $C = 1 - \frac{1}{\sqrt{3}}$, and our boundary layer solution is
+	\[ Y_0(\bar{x}) = \left( 1 - \frac{1}{\sqrt{3}} \right) e^{-2 \bar{x}} + \frac{1}{\sqrt{3}} .\]
+
+	Matching the outer and boundary layer solutions, we get the composite solution
+	\[ y(x) = (x + 3)^{-1/2} + \left(1 - \frac{1}{\sqrt{3}} \right) e^{-2 \frac{x}{\varepsilon}} .\]
+
+      \item Holmes 2.17
+	\begin{problem}
+	  Consider the boundary value problem
+	  \[ \varepsilon y'' - xy' - \kappa y = -1 \text{ for } -1 < x < 1, \]
+	  where $y(-1)=y(1)=0.$ Assuming
+	  \[ \kappa = \int_{-1}^{1} y^2 dx, \]
+	  find the first term in an expansion of $\kappa$ for small $\varepsilon$.
+	\end{problem}
+	
+	\begin{solution}
+	  We will first consider $\kappa$ as a constant. We expand $y$ as
+	  \[ y = y_0 + \varepsilon^\alpha y_1 + \dots \]
+
+	  Then we get 
+	  \[ \varepsilon (y_0'' + \varepsilon^\alpha y_1'' + \dots) - x(y_0' + \varepsilon^\alpha y_1' + \dots ) - \kappa (y_0 + \varepsilon^\alpha y_1 + \dots) = -1 .\]
+	  Our $O(1)$ equation is then
+	  \[ -x y_0' - \kappa y_0 = -1 \]
+	  with the boundary conditions $y_0(-1)=y_0(1)=0.$
+
+	  We can solve this equation with an integrating factor to get
+	  \[ y_0 = \frac{1}{\kappa} + C |x|^\kappa . \]
+
+	  We want our solution to solve the given differential equation. In particular, we want our solution to be differentiable at $x=0$. Therefore, we must have $C=0$.
+	  The solution we have just found, $y_0 = \frac{1}{\kappa}$, does not satisfy either boundary condition. Because of this we will introduce a boundary layers at $x = 1$ and $x=-1$. 
+	  
+	  We define the rescaled coordinates
+	  \[ \bar{x} = \frac{x - 1}{\varepsilon^\beta} \]
+	  and express this boundary layer solution as
+	  \[ Y(\bar{x}) = y(x) .\]
+
+	  We will expand
+	  \[ Y = Y_0 + \varepsilon^\gamma Y_1 + \dots \]
+	  Plugging this into our differential equation, we have
+	  \[ \varepsilon^{1-2\beta}( Y_0'' + \varepsilon^\gamma Y_1'' + \dots ) - \varepsilon^{-\beta} (\varepsilon \bar{x} + 1) (Y_0' + \varepsilon^\gamma Y_1' + \dots ) - \kappa (Y_0 + \varepsilon^\gamma Y_1 + \dots)  = -1 .\]
+
+	  Balancing our dominant terms gives $\beta = 1$. This yields the $O(\frac{1}{\varepsilon})$ equation
+	  \[ Y_0'' - Y_0' = 0 \]
+	  with the boundary condition $Y_0(0) = 0$.
+	  This differential equaiton has solutions of the form
+	  \[ Y_0 = A e^{\bar{x}} + B \]
+	  with $A+B=0$.
+
+	  When we match this to our outer solution, we require
+	  \[ \lim_{x \to 1} y_0(x) = \lim_{\bar{x} \to -\infty} Y_0(\bar{x}) .\]
+	  Computing these limits, we see that we need
+	  \[ \frac{1}{\kappa} = B .\]
+
+	  So this boundary layer solution is
+	  \[Y_0 = -\frac{1}{\kappa} e^{\bar{x}} + \frac{1}{\kappa} .\]
+
+	  Next we see what happens in a boundary layer at $x=-1$. We define the boundary layer coordinates
+	  \[ \tilde{x} = \frac{x+1}{\varepsilon^\nu} \]
+	  and write our boundary layer solution as
+	  \[ \tilde{Y}(\bar{x}) = y(x) .\]
+	  Expanding $\tilde{Y}$ asymptotically as
+	  \[ \tilde{Y} = \tilde{Y_0} + \varepsilon^\mu \tilde{Y_1} + \dots, \]
+	  plugging this into our equation, balancing dominant terms, we get the $O(1)$ equation
+	  \[ \tilde{Y_0}'' + \tilde{Y_0} = 0 \]
+	  with the initial condition $\tilde{Y_0}(0) = 0$.
+	  Similar to before, this gives the solution
+	  \[ \tilde{Y_0} = De^{-\tilde{x}} + E \]
+	  with $D+E = 0$.
+
+	  Matching to our outer solution, we find
+	  \[ \frac{1}{\kappa} = E .\]
+
+	  Therefore, this boundary solution is
+	  \[ \tilde{Y_0} = -\frac{1}{\kappa} e^{-\tilde{x}} + \frac{1}{\kappa} .\]
+
+	  Combining our boundary solutions and outer solution, we get the composite solution
+	  \[ y \sim \frac{1}{\kappa} \left( 1 - e^{ \frac{x-1}{\varepsilon} } - e^{ -\frac{x+1}{\varepsilon} } \right) \]
+
+	  Now we must find $\kappa$.
+	  \begin{align*}
+	    \kappa &= \int_{-1}^{1} y^2 dx \\
+	    &\sim \int_{-1}^{1} \frac{1}{\kappa^2} \left( 1 - e^{ \frac{x-1}{\varepsilon} } - e^{ -\frac{x+1}{\varepsilon} } \right)^2 dx \\
+	    &= \frac{1}{\kappa^2} \int_{-1}^{1} \left( 1 - 2 e^{ \frac{x-1}{\varepsilon} } - 2e^{- \frac{x+1}{\varepsilon} } + 2e^{ -\frac{2}{\varepsilon} } + e^{2 \frac{x-1}{\varepsilon}} + e^{-2 \frac{x+1}{\varepsilon} } \right) dx \\
+	    &= \frac{1}{\kappa^2} \left( 2 + 4e^{-2/\varepsilon} + \varepsilon( 4e^{-2/\varepsilon} - e^{-4/\varepsilon} ) \right)
+	  \end{align*}
+
+	  Therefore, we have
+	  \begin{equation*}
+	    \kappa \sim \left( 2 + 4e^{-2/\varepsilon} + \varepsilon( 4e^{-2/\varepsilon} - e^{-4/\varepsilon} ) \right)^{1/3}
+	  \end{equation*}
+
+	\end{solution}
+    \end{enumerate}
+
+  \item
+    \begin{problem}
+      Find an approximation to leading order of the following problem in $\R^3$:
+      \begin{align}
+	-\varepsilon \Delta u + u &= 1, r<1 \nonumber \\
+	-a \varepsilon \Delta v + v &= -1, a>0, 1<r<2 \nonumber \\
+	\frac{\partial u}{\partial r} &= a \frac{\partial v}{\partial r}, u-v = f < 2, r = 1 \\
+	\frac{\partial v}{\partial r} &= 0, r = 2 \nonumber
+      \end{align}
+      where $r$ is the distance from the origin, $f<2$ is a smooth function defined on the sphere $r=1, a>0$ is a constant, and $\varepsilon>0$ is a small parameter.
+
+    \end{problem}
+
+    \begin{solution}
+      We begin by asymptotically expanding our solutions $u$ and $v$ as
+      \[ u = u_0 + \varepsilon u_1 + \dots \]
+      and
+      \[ v = v_0 + \varepsilon v_1 + \dots \]
+
+      By plugging these expansions into our system of equations, we get the $O(1)$ equations
+      \[ \begin{cases}
+	u_0 = 1, &r<1 \\
+	v_0 = -1, &1<r<2 \\
+	\frac{\partial u_0}{\partial r} = a \frac{\partial v_0}{\partial r}, &r=1 \\
+	u_0 - v_0 = f, &r=1 \\
+	\frac{\partial v_0}{\partial r} = 0, &r=2 
+    \end{cases} \]
+
+    From here, we immediately see that $u_0$ and $v_0$ cannot satisfy $u_0-v_0 = f$ at $r=1$ because $f<2$. Because of this, we will get a boundary layer at $r=1$.
+
+    We will work in spherical coordinates from now on and rescale the radius as \[ 1 + \varepsilon^\alpha R = r .\] We will write our solutions as $U(R,\theta,\varphi) = u(r,\theta,\varphi)$ and $V(R,\theta,\varphi) = v(r,\theta,\varphi)$. In spherical coordinates, the Laplacian is expressed as
+    \[ \Delta g = \frac{\partial^2 g}{\partial r^2} + \frac{2}{r} \frac{\partial g}{\partial r} + \frac{1}{r^2 \sin \theta} \frac{\partial}{\partial \theta} \left( \sin\theta \frac{\partial g}{\partial \theta}\right) + \frac{1}{r^2 \sin^2 \theta} \frac{\partial^2 g}{\partial \varphi^2} .\]
+    Using the Chain rule our equations become
+    \[ \begin{cases}
+	-\varepsilon \left( \varepsilon^{-2\alpha} \frac{\partial^2 U}{\partial R^2} + \varepsilon^{-\alpha} \frac{2}{1 + \varepsilon^\alpha R} \frac{\partial U}{\partial R} + \frac{1}{(1+\varepsilon^\alpha R)^2 \sin \theta} \frac{\partial }{\partial \theta} \left( \sin \theta \frac{\partial U}{\partial \theta} \right) + \frac{1}{(1+\varepsilon^\alpha R)^2 \sin^2\theta} \frac{\partial^2 U}{\partial \varphi^2} \right) + U = 1, &R<0 \\
+        -a \varepsilon \left( \varepsilon^{-2\alpha} \frac{\partial^2 V}{\partial R^2} + \varepsilon^{-\alpha} \frac{2}{1 + \varepsilon^\alpha R} \frac{\partial V}{\partial R} + \frac{1}{(1+\varepsilon^\alpha R)^2 \sin \theta} \frac{\partial }{\partial \theta} \left( \sin \theta \frac{\partial V}{\partial \theta} \right) + \frac{1}{(1+\varepsilon^\alpha R)^2 \sin^2\theta} \frac{\partial^2 V}{\partial \varphi^2} \right) + V = 1, &0<R \\
+	\frac{\partial U}{\partial R} = a \frac{\partial V}{\partial R}, &R=0 \\
+	U-V = f, &R=0
+    \end{cases} \]
+
+    We expand $U$ and $V$ asymptotically as
+    \[ U = U_0 + \varepsilon^\beta U_1 + \dots, \]
+    and
+    \[ V = V_0 + \varepsilon^\beta V_1 + \dots \]
+    After plugging these expansions in, we must balance terms, which suggests that we let $\alpha = 1/2$. Then we get the $O(1)$ equations
+    \[ \begin{cases}
+	-\frac{\partial^2 U_0}{\partial R^2} + U_0 = 1, &R < 0 \\
+	-a \frac{\partial^2 V_0}{\partial R^2} + V_0 = -1, &R>0 \\
+	\frac{\partial U_0}{\partial R} = a \frac{\partial V_0}{\partial R}, &R=0 \\
+	U_0 - V_0 = f, &R=0
+    \end{cases} \]
+
+    Solutions of these differential equations will be of the form
+    \begin{align*}
+      U_0(R,\theta,\varphi) &= A(\theta,\varphi) e^R + B(\theta,\varphi) e^{-R} + 1 \\
+      V_0(R,\theta,\varphi) &= C(\theta,\varphi) e^{R/\sqrt{a}} + D(\theta,\varphi) e^{-R/ \sqrt{a}} -1
+    \end{align*}
+    Because $\frac{\partial U_0}{\partial R} = a \frac{\partial V_0}{\partial R}$ at $R=0$, we know
+    \[ A - B = \sqrt{a}(C - D) .\]
+    Because $U_0 - V_0 = f$ at $R=0$, we know
+    \[ A + B - C - D = f - 2 .\]
+
+    In order to finish determining our coefficients, we need to match our boundary layer solutions to the outer solutions. We found our outer solutions to be the constants $u_0 = 1$ and $v_0 = -1$. Matching then requires
+    \[ \lim_{R \to -\infty} U_0 = 1,\]
+    and
+    \[ \lim_{R \to \infty} V_0 = -1.\]
+
+    So we have $B=C=0$. This leaves us with 
+    \[ D = - \frac{f-2}{1 + \sqrt{a}}, \]
+    and
+    \[ A = \frac{a(f-2)}{a + \sqrt{a}} .\]
+
+    This gives us the boundary layer solutions 
+    \[ U_0 = \frac{a(f-2)}{a+\sqrt{a}} e^R + 1 ,\]
+    and
+    \[ V_0 = \frac{2-f}{1 + \sqrt{a}} e^{-R/\sqrt{a}} - 1 .\]
+
+    If we want composite solutions that is accurate to $O(1)$, we have
+    \[ u(r,\theta,\varphi) = \frac{a(f(\theta,\varphi) - 2)}{a+\sqrt{a}} \exp \left((r-1)\varepsilon^{-1/2} \right) + 1, \]
+    and
+    \[ v(r,\theta,\varphi) = \frac{2-f(\theta,\varphi)}{1 + \sqrt{a}} \exp \left( - \frac{r-1}{\sqrt{a}} \varepsilon^{-1/2} \right) - 1 .\]
+
+    \end{solution}
+
+  \item
+    \begin{problem}
+      Consider the equation:
+      \begin{equation}
+      \frac{\partial u}{\partial t} + f(u) \frac{\partial u}{\partial x} = \varepsilon \frac{\partial^2 u}{\partial x^2} .
+      \end{equation}
+      Burgers' equation is the case $f(u) = u$. Assume $f'(r) > 0$.
+
+      \begin{enumerate}
+	\item 
+	  Explain why, similarly to Burgers' equation, the equation may develop shocks when $\varepsilon=0$ for certain initial conditions.
+
+	\item
+	  Suppose the shock location is given by $s(t)$. Find the differential equation describing the shock location using a matched asymptotics calculation assuming $\varepsilon$ is positive but small.
+
+	\item
+	  Suppose $f(u)=u$ and the initial condition is given by:
+	  \begin{equation}
+	    u(x,0) =
+	    \begin{cases}
+	      0 & x \leq 0 \\
+	      x & 0 < x \leq 1 \\
+	      2-x & 1 < x \leq 2 \\
+	      0 & x > 2.
+	    \end{cases}
+	  \end{equation}
+	  Describe the behavior of the solution.
+      \end{enumerate}
+    \end{problem}
+
+    \begin{solution}
+      \begin{enumerate}
+	\item 
+	  We will consider a curve given by $x = q(t)$ and define
+	  \[ U(t) = u(q(t),t) .\]
+	  Using the chain rule, we know
+	  \[ \frac{dU}{dt} = \frac{\partial u}{\partial x} \frac{dq}{dt} + \frac{\partial u}{\partial t} .\]
+	  If we set $\frac{dq}{dt} = f(u(q(t),t) = f(U)$, then $\frac{dU}{dt} = 0$. This means $u$ is constant along the curve $(q(t),t)$. Let $q(0) = x_0$. Then solving $\frac{dq}{dt} = f(U)$ gives the solution $q(t) = t f(U) + x_0$.
+
+	  From this calculation, we see that the characteristics have slope $\frac{1}{f(U)}$ (when viewed in the xt-plane). Therefore, the characteristics have slopes depending on the initial conditions (because $U(t) = u(q(t),t)$ is constant, so $f(U) = f(u(x_0,0))$).
+
+	  These characteristics do not necessarily all have the same slope, so they may cross eventually, leading to the formation of shocks.
+
+	\item
+	  We introduce the boundary layer coordinates $\bar{x} = \frac{x-s(t)}{\varepsilon^\alpha}$ near the shock. We express our boundary layer solution as $U(\bar{x},t) = u(x,t)$.
+
+	  By the chain rule, we know
+	  \begin{align*}
+	    \frac{\partial}{\partial t} ( U(\bar{x},t)) &= \frac{\partial U}{\partial t} + \frac{\partial U}{\partial \bar{x}} \frac{\partial \bar{x}}{\partial t} \\
+	    &= \frac{\partial U}{\partial t} - \frac{s'(t)}{\varepsilon^\alpha} \frac{\partial U}{\partial \bar{x}}
+	  \end{align*}
+	  and
+	  \[ \frac{\partial}{\partial x} = \frac{\partial \bar{x}}{\partial x} \frac{\partial}{\partial \bar{x}} = \varepsilon^{-\alpha} \frac{\partial}{\partial \bar{x}} .\]
+
+	  Using these facts and plugging $U$ into our equation, we get
+	  \begin{equation*}
+	    \frac{\partial U}{\partial t} - \varepsilon^{-\alpha} s'(t) \frac{\partial U}{\partial \bar{x}} + \varepsilon^{-\alpha} f(U) \frac{\partial U}{\partial \bar{x}} = \varepsilon^{1-2\alpha} \frac{\partial^2 U}{\partial \bar{x}^2}
+	  \end{equation*}
+
+	  Now we asymptotically expand our boundary layer solution as
+	  \[ U = U_0 + \varepsilon^\beta U_1 + \dots \]
+
+	  Next, we must balance terms. In this case, we want to balance our $\varepsilon^{-\alpha}$ and $\varepsilon^{1-2\alpha}$ terms by letting $\alpha  = 1$, leaving all other terms as higher order. This gives us the $O\left( \frac{1}{\varepsilon}\right)$ equation
+	  \[ - s'(t) \frac{\partial U_0}{\partial \bar{x}} + f(U_0) \frac{\partial U_0}{\partial \bar{x}} = \frac{\partial^2 U_0}{\partial \bar{x}^2} \]
+	  (we have used the Taylor series expansion of $f(U)$ centered at $U_0$). Now we assume we can find a function $F$ such that $F'(u) = f(u)$. Then we write the above equation as
+	  \[ \frac{\partial}{\partial \bar{x}} \big[ -s'(t) U_0 + F(U_0) \big] = \frac{\partial^2 U_0}{\partial \bar{x}^2} \]
+	  This implies that
+	  \begin{equation} \label{bdry}
+	   -s'(t) U_0 + F(U_0) = \frac{\partial U_0}{\partial \bar{x}} + A(t) 
+	 \end{equation}
+	  for some function $A(t)$. For matching, we need
+	  \[ \lim_{\bar{x} \to \infty} U_0(\bar{x},t) = \lim_{x \to s(t)^+} u_0(x,t) = u_R , \]
+	  and
+	  \[ \lim_{\bar{x} \to -\infty} U_0(\bar{x},t) = \lim_{x \to s(t)^-} u_0(x,t) = u_L \]
+	  where $u_R$ and $u_L$ are the values of $u$ to the right and left of the shock, respectively. As we take $\bar{x} \to \pm \infty$ we expect to have $\frac{\partial U_0}{\partial \bar{x}} = 0$. Taking these limits in \eqref{bdry}, we get
+	  \[ -s'(t) u_R + F(u_R) = A(t) ,\]
+	  and
+	  \[ -s'(t) u_L + F(u_L) = A(t) .\]
+	  Subtracting these two equations gives
+	  \[s'(t) (u_L - u_R) + F(u_R) - F(u_L) = 0 .\]
+	  Thus, the differential equation satisfied by $s(t)$ is
+	  \[ s'(t) = \frac{F(u_L) - F(u_R)}{u_L - u_R} .\]
+
+
+	\item
+	  
+      \end{enumerate}
+    \end{solution}
+\end{enumerate}
+\end{document}
+
+

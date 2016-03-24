@@ -1,0 +1,399 @@
+%        File: hw1.tex
+%     Created: Thu Feb 04 01:00 PM 2016 C
+% Last Change: Thu Feb 04 01:00 PM 2016 C
+%
+
+\documentclass[a4paper]{article}
+
+\title{Math 8402 Homework 1}
+\date{2/12/16}
+\author{Trevor Steil}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\newtheorem*{claim}{Claim}
+\newtheorem*{problem}{Problem}
+\newtheorem*{lemma}{Lemma}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\supp}[1]{\mathop{\mathrm{supp}}\left(#1\right)}
+\newcommand{\la}{\left \langle}
+\newcommand{\ra}{\right \rangle}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\newenvironment{solution}{\emph{Solution.}}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+  \item 
+    \begin{enumerate}
+      \item (Holmes, 1.8(a))\begin{problem}
+      Find the first two terms in the expansion for 
+      \[ f = \int_{0}^{\pi/4} \frac{dx}{\varepsilon^2 + \sin^2 x} .\]
+    \end{problem}
+    \begin{solution}
+	
+      We can write
+      \[\frac{1}{\varepsilon^2 + \sin^2x} = \frac{1}{\sin^2x} \left( 1 - \frac{\varepsilon^2}{\sin^2x} + \dots \right) .\]
+      In order for the terms to be well ordered near $x = 0$, we need $\frac{\varepsilon^2}{\sin^2x} \ll 1$. Equivalently, we need $ \varepsilon^2 \ll \sin^2x$. By expanding $\sin x$, we see that we can take $\varepsilon \ll x$. Let $\delta$ be such that $\varepsilon \ll \delta \ll 1$. Then we can write
+      \[ \int_{0}^{\pi/4} \frac{dx}{\varepsilon^2 + \sin^2x} = \int_{0}^{\delta} \frac{dx}{\varepsilon^2 + \sin^2x} + \int_{\delta}^{ \pi/4} \frac{dx}{\varepsilon^2 + \sin^2x} . \]
+
+      For the second integral, we can evaluate 
+      \begin{align*}
+	\int_{\delta}^{\pi/4} \frac{dx}{\varepsilon^2 + \sin^2 x} 
+	&= \int_{\delta}^{\pi/4} \csc^2 x \left( 1 - \varepsilon^2 \csc^2 x + \dots \right)dx \\
+	&= \int_{\delta}^{\pi/4} \csc^2x dx - \varepsilon^2 \int_{\delta}^{\pi/4} \csc^4x dx + \dots \\
+	&= \left[ - \cot x + \varepsilon^2( \cot x + \frac{1}{3} \cot^3x) + \dots \right]_\delta^{\pi/4} \\
+	&= \left( -1 + \frac{4}{3} \varepsilon^2 + \dots \right) - \left( - \cot \delta + \varepsilon^2 ( \cot \delta + \frac{1}{3} \cot^3 \delta) + \dots \right) \\
+	&\sim -1 + \frac{1}{\delta} + \varepsilon^2 \left( \frac{4}{3} - \frac{1}{\delta} - \frac{1}{3\delta^3} \right) + \dots
+      \end{align*}
+
+      For the first integral, we will make the change of variables $y = \frac{x}{\varepsilon}$ and let $\eta = \frac{\delta}{\varepsilon}$. Then we get
+      \begin{align*}
+	\int_{0}^{\delta} \frac{dx}{\varepsilon^2 + \sin^2 x}
+	&= \varepsilon \int_{0}^{\eta} \frac{dy}{\varepsilon^2 + \sin^2 (\varepsilon y)} \\
+	&= \varepsilon \int_{0}^{\eta} \frac{dy}{\varepsilon^2 + \left( \varepsilon y - \frac{1}{6} \varepsilon^3 y^3 + \dots \right)^2} \\
+	&= \frac{1}{\varepsilon} \int_{0}^{\eta} \frac{dy}{1 + y^2 - \frac{1}{3} \varepsilon^2 y^4 + \dots} \\
+	&\sim \frac{1}{\varepsilon} \int_{0}^{\eta} \left( \frac{1}{1+y^2} + \dots \right) dy \\
+	&= \frac{1}{\varepsilon} \left[ \tan^{-1}(y) + \dots \right]_0^\eta \\
+	&= \frac{1}{\varepsilon} \left( \tan^{-1}(\eta) + \dots \right) \\
+	&= \frac{1}{\varepsilon} \left( \tan^{-1} \left( \frac{\delta}{\varepsilon} \right) + \dots \right) \\
+	&= \frac{1}{\varepsilon} \left( \cot^{-1} \left(\frac{\varepsilon}{\delta} \right) + \dots \right) \\
+	&= \frac{1}{\varepsilon} \left( \frac{\pi}{2} - \tan^{-1} \left(\frac{\varepsilon}{\delta} \right) + \dots \right) \\
+	&\sim \frac{\pi}{2\varepsilon} - \frac{1}{\delta} + \frac{\varepsilon^2}{3 \delta^3} + \dots
+      \end{align*}
+
+      Adding these two results, we get
+      \begin{align*}
+	\int_{0}^{\pi/4} \frac{dx}{\varepsilon^2 + \sin^2x} 
+	&= \int_{0}^{\delta} \frac{dx}{\varepsilon^2 + \sin^2x} + \int_{\delta}^{\pi/4} \frac{dx}{\varepsilon^2 + \sin^2x} \\
+	&\sim -1 + \frac{\pi}{2 \varepsilon}
+      \end{align*}
+    \end{solution}
+
+    \item (Holmes, 1.21)
+      \begin{problem}
+	To determine the natural frequencies of an elastic string, one is faced with solving the equation $\tan(\lambda) = \lambda$.
+	\begin{enumerate}
+	  \item
+	    After sketching the two functions in this equation on the same graph, explain why there is an infinite number of solutions.
+	  \item
+	    To find an asymptotic expansion of the large solutions of the equation, assume that $\lambda \sim \varepsilon^{-\alpha}( \lambda_0 + \varepsilon^\beta \lambda_1)$. Find $\varepsilon, \alpha, \beta, \lambda_0, \lambda_1$ (note $\lambda_0$ and $\lambda_1$ are nonzero and $\beta>0$).
+	\end{enumerate}
+      \end{problem}
+
+      \begin{solution}
+	\begin{enumerate}
+	  \item For every $k \in \Z$, $\tan x$ considered as a function $\big((k-1/2)\pi, (k+1/2)\pi \big) \to \R$ is surjective. So on each of these intervals, $\tan \lambda = \lambda$ has a solution, giving us infinitely many solutions.
+
+	  \item 
+	    We immediately see that the large solutions of $\tan \lambda = \lambda$ should approach the asymptotes of $\tan$ at $(n+1/2) \pi$. We also see that the problem does not have an immediately obvious small parameter $\varepsilon$. However, since we are looking for large solutions, the corresponding locations of the asymptotes grow very large. Thus we will take $\varepsilon = \frac{1}{(n + 1/2) \pi}$ when appropriate.
+
+	    Because of these facts, we will assume our solution is of the form
+	    \[ \lambda = (n + 1/2)\pi + \mu = \varepsilon^{-1} + \mu ,\]
+	    where $\mu \ll  \varepsilon^{-1}$ (for well-ordering purposes).
+
+	    Plugging these into $\tan \lambda = \lambda$, we get
+	    \begin{align*}
+	      \varepsilon^{-1} + \mu &= \tan( \varepsilon + \mu ) \\
+	      &= \tan( (n+1/2)\pi + \mu ) \\
+	      &= \tan( \pi/2 + \mu ) \\
+	      &= - \cot( \mu ) \\
+	      &\sim - \frac{1}{\mu} + \frac{1}{3} \mu
+	    \end{align*}
+
+	    Thus we have
+	    \[ \varepsilon^{-1} \sim - \frac{1}{\mu} - \frac{2}{3} \mu .\]
+
+	    Because we assumed $\mu \ll \varepsilon^{-1}$, we have that
+	    \[ \mu \sim - \varepsilon. \]
+
+	    This gives us the expansion
+	    \begin{align*}
+	      \lambda &= \varepsilon^{-1} - \varepsilon \\
+	      &= (n+1/2)\pi - \frac{1}{(n+1/2)\pi}
+	    \end{align*}
+
+	    This fits the form we desired with $\varepsilon = \frac{1}{(n+1/2)\pi}, \alpha=-1, {\beta=2}, {\lambda_0=1},$ and $\lambda_1 = -1$.
+
+	\end{enumerate}
+      \end{solution}
+  \end{enumerate}
+
+\item
+  \begin{problem}
+    Consider the following eigenvalue problem:
+    \[ - \frac{\partial^2 u}{\partial x^2} + \varepsilon f(x) u = \lambda u, \text{ in } \R/2 \pi \Z, \]
+    where $f$ is a smooth periodic function.
+    \begin{enumerate}
+      \item Find all eigenvalues and eigenfunctions of the above problem when $\varepsilon = 0$.
+      \item Discuss what happens with the eigenvalues and eigenfunctions when $\varepsilon \not= 0$ but small.
+    \end{enumerate}
+  \end{problem}
+
+  \begin{solution}
+    \begin{enumerate}
+      \item
+    When $\varepsilon = 0$, we get the eigenvalue problem
+    \[ -u''(x) = \lambda u(x) \text{ on } \R/2\pi\Z. \]
+    This gives the characteristic equation
+    \[ r^2 + \lambda = 0, \]
+    which has the solutions $r = \pm \sqrt{\lambda} i$. So the solutions to our eigenvalue problem are of the form
+    \[ u(x) = A \cos (\sqrt{\lambda}x) + B \sin(\sqrt{\lambda}x) .\]
+    In order to maintain periodicity, we must have $\sqrt{\lambda} \in \Z$. So we have the eigenvalues $m \in \Z$ and the eigenfunctions ${u = A \cos(mx) + \sin(mx)}$.
+
+  \item
+    We will assume we have asymptotic expansions for the eigenfunctions
+    \[ u(x) = u_0(x) + \varepsilon u_1(x) + \dots \]
+    and for the eigenvalues
+    \[ \lambda = \lambda_0 + \varepsilon \lambda_1 + \dots \]
+    Plugging these into our equation gives
+    \[ -(u_0''(x) + \varepsilon u_1''(x) + \dots) + \varepsilon f(x) (u_0(x) + \varepsilon u_1(x) + \dots ) = ( \lambda_0 + \varepsilon \lambda_1 + \dots ) (u_0(x) + \varepsilon u_1(x) + \dots ) \]
+
+    Looking at our $O(1)$ terms, we get that
+    \[ -u_0''(x) = \lambda_0 u_0(x), \]
+    which has its solution given in part (a).
+
+    For the $O(\varepsilon)$ equation, we get
+    \[ -u_1''(x) + f(x) u_0(x) = \lambda_0 u_1(x) + \lambda_1 u_0(x) .\]
+
+    Rewriting this, we need $u_1$ to solve
+    \begin{equation}\label{ODE}
+      u_1''(x) + \lambda_0 u_1(x) = u_0(x) \left( f(x) - \lambda_1\right) .
+    \end{equation}
+
+    Because $u_1, u_2,$ and $f$ are smooth and periodic, we will expand in fourier series to solve this equation. We will use our expansion with complex exponentials for convenience.
+
+    Let
+    \begin{align*}
+      f(x) &= \sum_{n=-\infty}^{\infty} f_n e^{inx} \\
+      u_0(x) &= a e^{in_0x} + b e^{-in_0x} \quad \parbox{5 cm}{because $u_0$ is an eigenfunction with the form from part a} \\
+      u_1(x) &= \sum_{n=-\infty}^{\infty} u_{1,n} e^{inx}
+    \end{align*}
+    where we have chosen our eigenvalue $n_0^2$ with our eigenfunction $u_0$for the unperturbed problem.
+
+    Because we are dealing with real-valued functions, we require that $f_n = \overline{f_{-n}}, a = \overline{b}$, and $u_{1,n} = \overline{u_{1,-n}}$.
+    Plugging these into \eqref{ODE}, we get for any $n \not= \pm n_0$
+    \begin{equation*}
+      - n^2 u_{1,n} + n_0^2 u_{1,n} = a f_{n-n_0} + b f_{n+n_0}
+    \end{equation*}
+    This allows us to solve for all coefficients except for $u_{1,n_0}$ and $u_{1,-n_0}$ to get
+    \[ u_{1,n} = \frac{a f_{n-n_0} + b f_n+n_0}{n_0^2 - n^2} .\]
+
+    Assume that $n = n_0$. Then when plugging our Fourier series into \eqref{ODE}, we get the equation
+    \[ 0 = -n_0^2 u_{1,n_0} +n_0^2 u_{1,n_0} = a f_0 + b f_{2n_0} - \lambda_1 a .\]
+    Similarly, when plugging in $n = -n_0$, we get
+    \[ 0 = a f_{-2n} + b f_{0} - \lambda_1 b .\]
+    These equations can be rewritten as 
+    \[ \lambda_1 = f_0 + \frac{\overline{a}}{a} f_{2n_0} \]
+    and
+    \[ \lambda_1 = f_0 + \frac{a}{\overline{a}} \overline{f_{2n_0}} .\]
+    This tells us that
+    \begin{align*}
+      \frac{\overline{a}}{a} f_{2n_0} &= \frac{a}{\overline{a}} \overline{f_2n_0} \\
+      &= \overline{ \frac{\overline{a}}{a} f_{2n_0} }
+    \end{align*}
+
+    Therefore, $\frac{\overline{a}}{a} f_{2n_0}$ must be real. So in order to be able to find the $\lambda_1$ we desire, we must have
+    \[ f_{2n_0} = \frac{a}{\overline{a}} c \]
+    for some real number $c$.
+
+    If this condition is satisfied, we can solve for $\lambda_1$. From this condition, we do not get a unique $\lambda_1$. We are also able to find almost all Fourier coefficients of $u_1$ uniquely, but we do not get $u_{1,n_0}$ or $u_{1,-n_0}$, giving us a lack of unique $u_1$.
+
+\end{enumerate}
+
+  \end{solution}
+
+\item
+  \begin{problem}
+    Consider the eigenvalue perturbation problem for the matrix $A + \varepsilon B$ where $\varepsilon > 0$ is a small parameter. Let $\lambda_0$ be the eigenvalue from which we perform perturbations. Suppose the eigenvalue $\lambda_0$ is an eigenvalue of geometric multiplicity 1 but of algebraic multiplicity 3. Find the leading order correction to the eigenvalue and eigenvector.
+  \end{problem}
+
+  \begin{solution}
+    We wish to find the $\lambda$ and $v$ satisfying
+    \[(A + \varepsilon B)v = \lambda v. \]
+    We start by expanding
+    \[ v = v_0 + \varepsilon^{\alpha} v_1 + \varepsilon^{2\alpha} v_2 + \dots \]
+    and
+    \[ \lambda = \lambda_0 + \varepsilon^{\alpha} \lambda_1 + \varepsilon^{2\alpha} \lambda_2 + \dots \]
+    (we are assuming $\lambda_0$ will be the correct term in this expansion, which it will be). By plugging these in above, we get
+    \[ (A + \varepsilon B) (v_0 + \varepsilon^{\alpha} v_1 + \varepsilon^{2\alpha} v_2 + \dots) = (\lambda_0 + \varepsilon^{\alpha} \lambda_1 + \varepsilon^{2\alpha} \lambda_2 + \dots) (v_0 + \varepsilon^{\alpha} v_1 + \varepsilon^{2\alpha} v_2 + \dots) . \]
+
+    From this, we get the $O(1)$ equation,
+    \[ A v_0 = \lambda_0 v_0 ,\]
+    as we expected.
+
+    For the $O(\varepsilon^{\alpha})$ equation we have
+    \[ (A - \lambda_0 I) v_1 = \lambda_1 v_0 \]
+    where we have assumed $\alpha < 1$ (otherwise, we end up in the algebraically simple case done in class and end up dividing by zero because $\lambda_0$ has geometric multiplicity 3).
+    Then,
+    \[ (A - \lambda_0 I)^2 v_1 = \lambda_1 (A - \lambda_0 I)v_0 = 0 .\]
+    So $v_1$ is a generalized eigenvector of $A$. Let $w_0$ be a vector such that
+    \[(A - \lambda_0 I ) w_0 = v_0 .\]
+    This means $v_1 = \lambda_1 w_0$.
+
+    Now we move on to the $O(\varepsilon^{2\alpha})$ equation. If $2 \alpha = 1$, then we end up in the same calculation as for $\lambda_0$ having geometric multiplicity 2. This would lead us to dividing by 0, so we must have $\alpha < \frac{1}{2}$. Now our $O(\varepsilon^{2\alpha})$ equation is
+    \[ (A - \lambda_0 I) v_2 = \lambda_1 v_1 + \lambda_2 v_0 .\]
+    Repeatedly applying $A - \lambda_0 I$ gives
+    \begin{align*}
+      (A - \lambda_0 I)^2 v_2 &= \lambda_1 (A - \lambda_0 I) v_1 + \lambda_2 (A - \lambda_0 I) v_0 \\
+      &= \lambda_1^2 v_0
+    \end{align*}
+    and
+    \begin{align*}
+    (A - \lambda_0 I)^3 v_2 &= \lambda_0^2(A - \lambda_0 I)v_0 \\
+      &= 0
+    \end{align*}
+    Therefore, $v_2$ is a generalized eigenvector of rank 3. Let $w_1$ be a vector such that
+    \[ (A-\lambda_0 I) w_1 = w_0 .\]
+    This means that $v_2 = \lambda_1^2 w_1 + \lambda_2 w_0.$
+
+    Now we move on to the next equation. We expect at this point to be able to balance the term contributed by $B$ without any issues, which would mean $\alpha = \frac{1}{3}$. In this case, we get the $O(\varepsilon)$ equation
+    \begin{align*}
+    (A - \lambda_0) v_3 &= -B v_0 + \lambda_1 v_2 + \lambda_2 v_1 + \lambda_3 v_0 \\
+    &= -B v_0 + \lambda_1 (\lambda_1^2 w_1 + \lambda_2 w_0) + \lambda_1 \lambda_2 w_0 + \lambda_3 v_0 \\
+    &= -B v_0 + 2 \lambda_1 \lambda_2 w_0 + \lambda_1^3 w_1 + \lambda_3 v_0 
+  \end{align*}
+
+    In order for this to have a solution, we need 
+    \[ -B v_0 + 2\lambda_1 \lambda_2 w_0 + \lambda_1^3 w_1 + \lambda_3 v_0 \in Im(A - \lambda_0 I) \]
+    Let $v_0^* \in \ker(A^* - \overline{\lambda_0}I)$. By the Fredholm Alternative, we require that
+    \[ \la -B v_0 + 2 \lambda_1 \lambda_2 w_0 + \lambda_1^3 w_1 + \lambda_3 v_0, v_0^* \ra = 0 \]
+
+    We have that
+    \begin{align*}
+      \la v_0, v_0^* \ra &= \la (A - \lambda_0 I ) w_0, v_0^* \ra \\
+      &= \la w_0, (A^* - \overline{\lambda_0} I) v_0^* \ra \\
+      &= 0 \parbox{5cm}{\ because $v_0^* \in \ker(A^* - \overline{\lambda_0} I)$}
+    \end{align*}
+    Similarly,
+    \[ \la w_0, v_0^* \ra = 0 .\]
+
+    Therefore,
+    \begin{align*}
+      0 &= \la -B v_0 + 2 \lambda_1 \lambda_2 w_0 + \lambda_1^3 w_1 + \lambda_3 v_0, v_0^* \ra \\
+      &= \la -B v_0, v_0^* \ra + 2 \lambda_1 \lambda_2 \la w_0, v_0^* \ra + \lambda_1^3 \la w_1, v_0^* \ra + \lambda_3 \la v_0, v_0^* \ra \\
+      &= \la -B v_0, v_0^* \ra + \lambda_1^3 \la w_1, v_0^* \ra
+    \end{align*}
+  \end{solution}
+
+  Solving for $\lambda_1$ we have
+  \[ \lambda_1 = \left( \frac{\la B v_0, v_0^* \ra}{ \la w_1, v_0^* \ra} \right)^{1/3} \]
+  and our denominator is nonzero (otherwise $\lambda_0$ would have geometric multiplicity 4).
+
+  Thus
+  \[ v \sim v_0 + \varepsilon^{1/3} v_1 \]
+  and
+  \[ \lambda \sim \lambda_0 + \varepsilon^{1/3} \lambda_1 \]
+  where $v_1$ and $\lambda_1$ are given as above.
+
+  \pagebreak
+
+\item
+  \begin{problem}
+    Consider the following problem in two spatial dimensions, where $r$ and $\theta$ are the polar coordinates:
+    \begin{align*}
+      \Delta \varphi &= 0 \text{ for } r > a(1+ \varepsilon \cos(2 \theta)), \\
+      \varphi &= 0 \text{ at } r = a(1 + \varepsilon \cos(2 \theta)) , \\
+      \varphi &= r \cos \theta \text{ as } r \to \infty.
+    \end{align*}
+    Find the solution to the above problem to order $\varepsilon$.
+  \end{problem}
+
+  \begin{solution}
+    First we solve the unperturbed system
+    \begin{align*}
+      \Delta \varphi &= 0 \text{ for } r > a \\
+      \varphi &= 0 \text{ for } r = a \\
+      \varphi &= r\cos \theta \text{ as } r \to \infty
+    \end{align*}
+
+    We perform a separation of variables and assume we can write the solution as 
+    \[ \varphi(r, \theta) = X(r) Y(\theta). \]
+    Expressing the Laplacian in polar coordinates, we have
+    \[ \left( X''(r) + \frac{1}{r} X'(r) \right) Y(\theta) + \frac{X(r)}{r^2} Y''(\theta) = 0 .\]
+    This gives us
+    \[ \frac{1}{X(r)} \left( X''(r) + \frac{1}{r} X'(r) \right) = M = - \frac{1}{Y(\theta)} Y''(\theta) \]
+    where we have set the equation equal to a constant $M$ because the left side has no dependence on $\theta$ and the right side has no dependence on $r$.
+
+    This first equation becomes
+    \[X''(r) + \frac{1}{r} X'(r) - \frac{M}{r^2} X(r) = 0 \]
+    which has solutions of the form
+    \[ X(r) = A r^{-m} + B r^{m} \]
+    where $m^2 = M$.
+
+    The second equation becomes
+    \[ Y''(\theta) + MY(\theta) = 0 \]
+    which has solutions of the form
+    \[ Y(\theta) = C \sin(m \theta) + D \cos(m \theta).\]
+
+    We define the intermediate solution
+    \[ \psi(r, \theta) = \varphi(r, \theta) - r \cos(\theta). \]
+    We see that
+    \begin{align*}
+      \Delta \psi &= \Delta \varphi - \Delta (r \cos(\theta)) \\
+      &= \frac{1}{r} \cos(\theta) - \frac{1}{r} \cos(\theta) \\
+      &= 0
+    \end{align*}
+
+    Therefore, $\psi$ satisfies
+    \begin{align*}
+      \Delta \psi &= 0 \text{ for } r > a \\
+      \psi &= -r \cos(\theta) \text{ for } r = a \\
+      \psi &= 0 \text{ as } r \to \infty
+    \end{align*}
+
+    Expressing $\psi(r, \theta) = X(r)Y(\theta)$, we see that
+    \[ \psi(r, \theta) = -\frac{a^2}{r} \cos(\theta) .\]
+
+    Thus the solution to our unperturbed problem is
+    \[ \varphi(r, \theta) = \left( r - \frac{a^2}{r} \cos(\theta) \right). \]
+
+    Now we move onto the perturbed problem. We have that
+    \[ \varphi |_{r=a(1+\varepsilon \cos(2\theta))} = \varphi|_{r=a} + \varepsilon a \cos(2\theta) \frac{\partial\varphi}{\partial r} |_{r=a} + O(\varepsilon^2). \]
+
+    So we change our problem to
+    \begin{align*}
+       \Delta \varphi &= 0 \text{ for } r>a \\
+       \varphi + \varepsilon a \cos(2\theta) \frac{\partial \varphi}{\partial r} + O(\varepsilon^2) &= 0 \text{ for } r=a \\
+       \varphi &= r \cos\theta \text{ as } r \to \infty
+    \end{align*}
+  \end{solution}
+
+  Now we expand our solution as $\varphi = \varphi_0 + \varepsilon \varphi_1 + \dots$ and plug this into our modified problem.
+
+  Our $O(1)$ equations are then
+  \begin{align*}
+    \Delta \varphi_0 &= 0 \text{ for } r > a \\
+    \varphi_0 &= 0 \text{ for } r=a \\
+    \varphi_0 &= r \cos \theta \text{ as } r \to \infty
+  \end{align*}
+  This is the solution to our unperturbed problem, so 
+  \[ \varphi_0 = \left( r - \frac{a^2}{r} \cos \theta \right). \]
+
+  Our $O(\varepsilon)$ equations are
+  \begin{align*}
+    \Delta \varphi_1 &= 0 \text{ for } r > a \\
+    \varphi_1 + a \cos(2\theta) \frac{\partial\varphi_0}{\partial r} &=0 \text{ for } r=a \\
+    \varphi_1 &= 0 \text{ as } r \to \infty
+  \end{align*}
+
+  Evaluating $\frac{\partial \varphi_0}{\partial r}$ and using trig identities, we get
+  \[ \varphi_1 = a ( \cos \theta + \cos(3\theta) ) \text{ at } r=a .\]
+
+  By writing $\varphi_1(r, \theta) = X(r) Y(\theta)$, we see that
+  \[ \varphi_1(r, \theta) = \frac{a^2}{r} \cos\theta + \frac{a^4}{r^3} \cos(3\theta)\] 
+
+  So our solution is, 
+  \[ \varphi = \left(r - \frac{a^2}{r} \cos\theta \right) + \varepsilon \left( \frac{a^2}{r} \cos\theta + \frac{a^4}{r^3} \cos(3\theta) \right) + O(\varepsilon^2) .\]
+
+\end{enumerate}
+\end{document}
+
+
