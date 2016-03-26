@@ -194,7 +194,7 @@
       \[ f_t = \frac{1}{\sqrt{D(\varepsilon t)}} ,\]
       giving
       \[ f = \int_{0}^{t} \frac{1}{\sqrt{D(\varepsilon \tau)}} d \tau ,\]
-      \[ f_{tt} = -\frac{1}{2} (D(\varepsilon t))^{-3/2} \varepsilon .\]
+      \[ f_{tt} = -\frac{\varepsilon}{2} (D(\varepsilon t))^{-3/2} D'(\varepsilon t) .\]
       Now we expand our solution asymptotically as
       \[ y(t_1,t_2) = y_0(t_1, t_2) + \varepsilon y_1(t_1,t_2) + \dots \]
 
@@ -207,22 +207,40 @@
       \[ y_0 = A_0(t_2) \sin t_1 + B_0(t_2) \cos t_1 \]
       with $A_0(0) = \beta \sqrt{D(0)}$ and $B_0(0) = \alpha$.
 
-      Moving onto the $O(\varepsilon)$ equation, we get
+      Moving on to the $O(\varepsilon)$ equation, we get
       \begin{align*}
         \frac{\partial^2 y_1}{\partial t_1^2} + y_1 &= \frac{1}{2} (D(\varepsilon t))^{-3/2} \frac{\partial y_0}{\partial t_1} -
         \frac{2}{\sqrt{D(\varepsilon t)}} \frac{\partial^2 y_0}{\partial t_1 \partial t_2} + D'(\varepsilon t) \frac{1}{\sqrt{D(\varepsilon t)}}
         \frac{\partial y_0}{\partial t_1} \\
-        &= \left( \frac{1}{2} (D(\varepsilon t))^{-3/2} + D'(\varepsilon t) \frac{1}{\sqrt{D(\varepsilon t)}} \right) (A_0(t_2) \cos t_1 - B_0(t_2)
+        &= \left( \frac{1}{2} D'(\varepsilon t) (D(\varepsilon t))^{-3/2} + D'(\varepsilon t) \frac{1}{\sqrt{D(\varepsilon t)}} \right) (A_0(t_2) \cos t_1 - B_0(t_2)
         \sin t_1 ) \\
         &\quad - \frac{2}{\sqrt{D(\varepsilon t)}} \left( \frac{\partial A_0}{\partial t_2} \cos t_1 - \frac{\partial B_0}{\partial t_2} \sin t_1
         \right) \\
-        &= \left( \frac{A_0}{2} D^{-3/2} + \frac{A_0 D'}{\sqrt{D}} - \frac{2}{\sqrt{D}} \frac{\partial A_0}{\partial t_2} \right) \cos t_1
-        - \left( \frac{B_0}{2} D^{-3/2} + \frac{B_0 D'}{\sqrt{D}} - \frac{\partial B_0}{\partial t_2} \right) \sin t_1
+        &= \left( \frac{A_0}{2} D' D^{-3/2} + \frac{A_0 D'}{\sqrt{D}} - \frac{2}{\sqrt{D}} \frac{\partial A_0}{\partial t_2} \right) \cos t_1
+        - \left( \frac{B_0}{2} D' D^{-3/2} + \frac{B_0 D'}{\sqrt{D}} - \frac{\partial B_0}{\partial t_2} \right) \sin t_1
       \end{align*}
 
       In order to prevent secular terms, we want
-      \[ \frac{A_0}{2} D^{-3/2} + \frac{A_0 D'}{\sqrt{D}} - \frac{2}{\sqrt{D}} \frac{\partial A_0}{\partial t_2} = \frac{B_0}{2} D^{-3/2} +
+      \[ \frac{A_0}{2} D' D^{-3/2} + \frac{A_0 D'}{\sqrt{D}} - \frac{2}{\sqrt{D}} \frac{\partial A_0}{\partial t_2} = \frac{B_0}{2} D' D^{-3/2} +
       \frac{B_0 D'}{\sqrt{D}} - \frac{2}{\sqrt{D}} \frac{\partial B_0}{\partial t_2} = 0 .\]
+
+      This first equation is
+      \[ A_0' - \left( \frac{1}{4} D' D^{-1} + D' \right) A_0 = 0 .\]
+
+      We introduce an integrating factor and find that
+      \[ \left( A_0 \exp{ \left(-\frac{1}{4} \ln D - D \right) } \right) ' = 0 \]
+
+      Simplifying this, we get
+      \[ A_0 = C_1 D^{1/4} e^D . \]
+      Similarly, we get
+      \[ B_0 = C_2 D^{1/4} e^D .\]
+      where $C_1$ and $C_2$ are constants. Using the initial conditions $A_0(0) = \beta \sqrt{D(0)}$ and $B_0(0) = \alpha$, we have
+      \[ C_1 = \beta D(0)^{1/4} e^{-D(0)} \]
+      and
+      \[ C_2 = \alpha D(0)^{-1/4} e^{D(0)} .\]
+
+      Therefore, our solution first term approximation is
+      \[ y_0 = C_1 D(t_2)^{1/4}e^{D(t_2)} \sin t_1 + C_2 D(t_2)^{1/4} e^{D(t_2)} \cos t_1 .\]
 
     \end{solution}
 
@@ -249,6 +267,24 @@
     \begin{solution}
       \begin{enumerate}
         \item
+          This is a straightforward application of the WKB approximation. We define
+          \[ q(x) = V(x) - E \]
+          and see that $q(a) = q(b) = 0$ are the turning points with $q'(a) > 0$ and $q'(b) < 0$.
+
+          We set
+          \[ \theta_1(x) = \int_{x}^{a} \sqrt{|q(s)|} ds ,\]
+          \[ \theta_2(x) = \int_{x}^{b} \sqrt{|q(s)|} ds ,\]
+          \[ \kappa_1(x) = \int_{a}^{x} \sqrt{|q(s)|} ds ,\]
+          and
+          \[ \kappa_2(x) = \int_{b}^{x} \sqrt{|q(s)|} ds .\]
+
+          As discussed in Section 4.3.3, our solution is then
+          \[ \psi(x) \sim
+            \begin{cases}
+              \frac{1}{|q(x)|^{1/4}} \left[ 2 a_R \cos \left( \frac{1}{\varepsilon} \theta_1(x) - \frac{\pi}{4} \right) + b_R \cos \left( \frac{1}{\varepsilon} \theta_1(x) + \frac{\pi}{4} \right) \right] &\text{ if } x < a \\
+              \frac{1}{q(x)^{1/4}} \left( A_L e^{\theta_2(x)/\varepsilon} + B_L e^{-\theta_2(x)/\varepsilon} \right) &\text{ if } a<x<b \\
+              \frac{1}{|q(x)|^{1/4}} \left[ 2 B_L \cos \left( \frac{1}{\varepsilon} \kappa_2(x) - \frac{\pi}{4} \right) + A_L \cos \left( \frac{1}{\varepsilon} \kappa_2(x) + \frac{\pi}{4} \right) \right] &\text{ if } b < x
+          \end{cases} \]
 
         \item
       \end{enumerate}
@@ -279,7 +315,66 @@
     \begin{solution}
 
       \begin{enumerate}
-        \item
+          \item
+            We begin by assuming our solution is of the form
+            \[ u(x,y,t) = e^{i(\omega t - \theta(x)/\varepsilon)} (u_0(x,y) + \varepsilon u_1(x,y) + \dots ) .\]
+
+            Now we must take the necessary derivatives:
+            \[ u_x = e^{i(\omega t - \theta/\varepsilon)} \left( u_{0,x} + \varepsilon u_{1,x} + \dots \right) - \frac{i}{\varepsilon} \theta_x e^{i(\omega t - \theta/\varepsilon)} (u_0 + \varepsilon u_1 + \dots ) ,\]
+            \begin{align*}
+              u_{xx} &=  e^{i(\omega t - \theta/\varepsilon)} (u_{0,xx} + \varepsilon u_{1,xx} + \dots ) - \frac{2i}{\varepsilon} \theta_x e^{i(\omega t - \theta/\varepsilon)} (u_{0,x} + \varepsilon u_{1,x} + \dots ) \\
+              &\quad - \frac{1}{\varepsilon^2} \theta_x^2 e^{i(\omega t - \theta/\varepsilon)} (u_0 + \varepsilon u_1 + \dots ) -\frac{i}{\varepsilon} \theta_{xx} e^{i(\omega t - \theta/\varepsilon)} (u_0 + \varepsilon u_1 + \dots) ,
+            \end{align*}
+
+            \[ u_y = e^{i(\omega t - \theta/\varepsilon)} (u_{0,y} + \varepsilon u_{1,y} + \dots ) ,\]
+
+            \[ u_{yy} = e^{i(\omega t - \theta/\varepsilon)} (u_{0,yy} + \varepsilon u_{1,yy} + \dots ) ,\]
+
+            \[ u_t = i\omega e^{i(\omega t - \theta/\varepsilon)} (u_0 + \varepsilon u_1 + \dots ) , \]
+            and
+            \[ u_{tt} = - \omega^2 e^{i(\omega t - \theta/\varepsilon)} (u_0 + \varepsilon u_1 + \dots ) .\]
+
+            Next we need to plug these derivatives into our equation. We will skip writing this step explicitly and will instead write the necessary equations immediately. We begin with the $O(1)$ equation:
+            \[ -\theta_x^2 u_0 + u_{0,yy} = -\mu^2 \omega^2 u_0 \]
+            with the boundary conditions $u_0 = 0$ for $y = \pm 1$.
+            Rewriting this equation as
+            \[ u_{0,yy} + (\mu^2 \omega^2 - \theta_x^2) u_0 = 0 ,\]
+            we see it is an eigenvalue problem and is in fact the eikonal problem. As in the membrane problem from class, by setting $\lambda = \sqrt{\mu^2 \omega^2 - \theta_x^2}$, we get the solution
+            \begin{equation} \label{eq:u_0}
+               u_0(x,y) = A(x) \sin \left[ \lambda(y + 1) \right] ,
+            \end{equation}
+            where we must have $2 \lambda = n \pi$ in order to satisfy the boundary conditions. Thus we have
+            \[ \theta_x = \pm \sqrt{ \mu^2 \omega^2 - \lambda_n^2 } \text{ for } n = 1,2, \dots \]
+            where $\lambda_n = n \pi / 2$.
+
+            Now we look at our $O(\varepsilon)$ equation:
+            \[ -2i \theta_x u_{0,x} - \theta_x^2 u_1 - i \theta_{xx} u_0 + u_{1,yy} = -\mu^2 \omega^2 u_1 + i \omega \alpha u_0 ,\]
+            which can be rewritten as
+            \[ u_{1,yy} + \lambda_n^2 u_1 = i (\theta_{xx} u_0 + 2 \theta_x u_{0,x} + \omega \alpha u_0) \]
+            with the boundary condition $u_1 = 0$ at $y = \pm 1$.
+
+            To get our solvability condition, we multiply by $u_0$ and integrate from -1 to 1 in the $y$ direction. This gives
+            \[ \int_{-1}^{1} u_0 (u_{1,yy} + \lambda_n^2 u_1) dy = i \int_{-1}^{1} u_0 (\theta_xx u_0 + 2 \theta_x u_{0,x} + \omega \alpha u_0) dy \]
+            For the left-hand side, integrating by parts twice leaves
+            \begin{align*}
+              \int_{-1}^{1} u_0 (u_{1,yy} + \lambda_n^2 u_1) dy
+              &= \int_{-1}^{1} u_1 ( u_{0,yy} + \lambda_n^2 u_0) dy \\
+              &= 0 \quad \parbox{4cm}{by the eikonal equation}
+            \end{align*}
+
+            So we have
+            \begin{align*}
+              0 &= \int_{-1}^{1} u_0 (\theta_xx u_0 + 2 \theta_x u_{0,x} + \omega \alpha u_0) dy \\
+              &= \int_{-1}^{1} (\theta_x u_0^2)_x dy + \omega \alpha \int_{-1}^{1} u_0^2 dy \quad \parbox{4cm}{($\omega, \alpha$ are constant in $y$)} \\
+              &= \frac{d}{dx} \int_{-1}^{1} \theta_x u_0^2 dy + \omega \alpha A^2 \int_{-1}^{1} \sin^2 \left( \frac{n \pi}{2}(y+1) \right) dy \quad \parbox{4cm}{from equation \eqref{eq:u_0}} \\
+              &= \frac{d}{dx} \theta_x \int_{-1}^{1} u_0^2 dy + \omega \alpha A^2 \\
+              &= \frac{d}{dx} (\theta_x A^2) + \omega \alpha A^2
+            \end{align*}
+
+            Therefore, we have
+            \[ (A^2)' \theta_x + (\theta_{xx} + \omega \alpha) A^2 = 0 \]
+            Rewriting, we have
+            \[ \frac{(A^2)'}{A^2} = - \frac{\theta_{xx} + \omega \alpha}{\theta_x} .\]
 
         \item
       \end{enumerate}
