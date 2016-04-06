@@ -413,11 +413,16 @@
             Using an integrating factor, we can see that
             \begin{align*}
               A &= \pm \sqrt{B} \\
-              &= C e^{\frac{1}{2} \int_{}^{} \frac{2 \theta_{xx} + \omega \alpha}{2 \theta_x} dx}
+              &= C e^{-\frac{1}{2} \int_{a}^{x} \frac{2 \theta_{xx} + \omega \alpha}{2 \theta_x} dx} \\
+              &= \frac{C}{\sqrt{\theta_x}} e^{\frac{-1}{4} \int_{a}^{x} \frac{\omega \alpha}{\theta_x} dx}
             \end{align*}
-            for a constant $C$. Our solution is then given by
+            for a constant $C$. Our approximation is then given by
             \[ u_0(x,y) = A(x) \sin (\lambda_n y) \]
             with $A$ as above.
+
+            For each mode, our approximation is then
+            \[ u(x,y,t) \sim \frac{C}{\sqrt{\theta_x}} e^{-\frac{1}{4} \int_{a}^{x} \frac{\omega \alpha}{\theta_x} dx } e^{i (\omega t -
+            \theta/\varepsilon)} \sin(\lambda n y) .\]
 
         \item
       \end{enumerate}
