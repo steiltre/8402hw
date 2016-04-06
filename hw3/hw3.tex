@@ -63,7 +63,7 @@
           and
           \[ A \frac{\partial \phi}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) \cos \tau d \tau .\]
 
-        \item Use the above result to discuss the steady state and limit cycle when $f - (y^4 - 1) y'$.
+        \item Use the above result to discuss the steady state and limit cycle when $f = (y^4 - 1) y'$.
 
       \end{enumerate}
 
@@ -278,12 +278,44 @@
           and
           \[ \kappa_2(x) = \int_{b}^{x} \sqrt{|q(s)|} ds .\]
 
-          As discussed in Section 4.3.3, our solution is then
-          \[ \psi(x) \sim
-            \begin{cases}
-              \frac{1}{|q(x)|^{1/4}} \left[ 2 a_R \cos \left( \frac{1}{\varepsilon} \theta_1(x) - \frac{\pi}{4} \right) + b_R \cos \left( \frac{1}{\varepsilon} \theta_1(x) + \frac{\pi}{4} \right) \right] &\text{ if } x < a \\
-              \frac{1}{q(x)^{1/4}} \left( A_L e^{\theta_2(x)/\varepsilon} + B_L e^{-\theta_2(x)/\varepsilon} \right) &\text{ if } a<x<b \\
-              \frac{1}{|q(x)|^{1/4}} \left[ 2 B_L \cos \left( \frac{1}{\varepsilon} \kappa_2(x) - \frac{\pi}{4} \right) + A_L \cos \left( \frac{1}{\varepsilon} \kappa_2(x) + \frac{\pi}{4} \right) \right] &\text{ if } b < x
+          By equation 4.48 in Holmes we get that
+          \[ \psi \sim \begin{cases}
+              \frac{1}{|q(x)|^{1/4}} \left[ 2 a_R \cos \left( \frac{1}{\varepsilon} \theta_1(x) - \frac{\pi}{4} \right) + b_R \cos \left(
+              \frac{1}{\varepsilon} \theta_1(x) + \frac{\pi}{4} \right) \right] &\text{if } x < a, \\
+              \frac{1}{q(x)^{1/4}} \left( a_R e^{-\kappa_1(x)/\varepsilon} + b_R e^{\kappa_1(x)/\varepsilon} \right) &\text{if } a < x < b
+          \end{cases} \]
+
+          Similarly, we can use 4.57 to get
+          \[ \psi \sim \begin{cases}
+              \frac{1}{q(x)^{1/4}} \left( A_L e^{\theta_2(x)/\varepsilon} + B_L e^{-\theta_2(x)/\varepsilon} \right) &\text{if } a < x < b \\
+              \frac{1}{|q(x)|^{1/4}} \left[ 2 B_L \cos \left( \frac{1}{\varepsilon} \kappa_2(x) - \frac{\pi}{4} \right) + A_L \cos \left(
+              \frac{1}{\varepsilon} \kappa_2(x) + \frac{\pi}{4} \right) \right] &\text{if } b < x
+          \end{cases} \]
+
+          For the region with $a < x < b$, we need the two approximations to be equal. That is
+          \[ \frac{1}{q(x)^{1/4}} \left( a_R e^{-\kappa_1(x)/\varepsilon} + b_R e^{\kappa_1(x)/\varepsilon} \right) =
+          \frac{1}{q(x)^{1/4}} \left( A_L e^{\theta_2(x)/\varepsilon} + B_L e^{-\theta_2(x)/\varepsilon} \right) \]
+          for all $a < x < b.$ By plugging in $x=a$ and $x=b$, we get the pair of equations
+          \begin{align*}
+            a_R + b_R = A_L e^{\int_{a}^{b} \sqrt{|q(s)|} ds / \varepsilon} + B_L e^{-\int_{a}^{b} \sqrt{|q(s)|} ds / \varepsilon} \\
+            a_R e^{-\int_{a}^{b} \sqrt{|q(s)|} ds / \varepsilon} + b_R e^{\int_{a}^{b} \sqrt{|q(s)|} ds / \varepsilon} = A_L + B_L
+          \end{align*}
+
+          Solving these equations, we get the relations
+          \begin{align*}
+            a_R &= A_L e^{\int_{a}^{b} \sqrt{|q(s)|} ds / \varepsilon} \\
+            b_R &= B_L e^{-\int_{a}^{b} \sqrt{|q(s)|} ds / \varepsilon}
+          \end{align*}
+
+          Let
+          \[ C = \int_{a}^{b} \sqrt{|q(s)|} ds / \varepsilon .\]
+          Then we have
+          \[ \psi \sim \begin{cases}
+              \frac{1}{|q(x)|^{1/4}} \left[ 2 a_R \cos \left( \frac{1}{\varepsilon} \theta_1(x) - \frac{\pi}{4} \right) + b_R \cos \left(
+              \frac{1}{\varepsilon} \theta_1(x) + \frac{\pi}{4} \right) \right] &\text{if } x < a \\
+              \frac{1}{q(x)^{1/4}} \left( a_R e^{-\kappa_1(x)/\varepsilon} + b_R e^{\kappa_1(x)/\varepsilon} \right) &\text{if } a < x < b \\
+              \frac{1}{|q(x)|^{1/4}} \left[ 2 e^C b_R \cos \left( \frac{1}{\varepsilon} \kappa_2(x) - \frac{\pi}{4} \right) + e^{-C} a_R \cos \left(
+              \frac{1}{\varepsilon} \kappa_2(x) + \frac{\pi}{4} \right) \right] &\text{if } b < x
           \end{cases} \]
 
         \item
