@@ -386,7 +386,7 @@
             with the boundary condition $u_1 = 0$ at $y = \pm 1$.
 
             To get our solvability condition, we multiply by $u_0$ and integrate from -1 to 1 in the $y$ direction. This gives
-            \[ \int_{-1}^{1} u_0 (u_{1,yy} + \lambda_n^2 u_1) dy = i \int_{-1}^{1} u_0 (\theta_xx u_0 + 2 \theta_x u_{0,x} + \omega \alpha u_0) dy \]
+            \[ \int_{-1}^{1} u_0 (u_{1,yy} + \lambda_n^2 u_1) dy = i \int_{-1}^{1} u_0 (\theta_{xx} u_0 + 2 \theta_x u_{0,x} + \omega \alpha u_0) dy \]
             For the left-hand side, integrating by parts twice leaves
             \begin{align*}
               \int_{-1}^{1} u_0 (u_{1,yy} + \lambda_n^2 u_1) dy
@@ -396,7 +396,7 @@
 
             So we have
             \begin{align*}
-              0 &= \int_{-1}^{1} u_0 (\theta_xx u_0 + 2 \theta_x u_{0,x} + \omega \alpha u_0) dy \\
+              0 &= \int_{-1}^{1} u_0 (\theta_{xx} u_0 + 2 \theta_x u_{0,x} + \omega \alpha u_0) dy \\
               &= \int_{-1}^{1} (\theta_x u_0^2)_x dy + \omega \alpha \int_{-1}^{1} u_0^2 dy \quad \parbox{4cm}{($\omega, \alpha$ are constant in $y$)} \\
               &= \frac{d}{dx} \int_{-1}^{1} \theta_x u_0^2 dy + \omega \alpha A^2 \int_{-1}^{1} \sin^2 \left( \frac{n \pi}{2}(y+1) \right) dy \quad \parbox{4cm}{from equation \eqref{eq:u_0}} \\
               &= \frac{d}{dx} \theta_x \int_{-1}^{1} u_0^2 dy + \omega \alpha A^2 \\
