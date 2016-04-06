@@ -368,45 +368,56 @@
 
             Next we need to plug these derivatives into our equation. We will skip writing this step explicitly and will instead write the necessary equations immediately. We begin with the $O(1)$ equation:
             \[ -\theta_x^2 u_0 + u_{0,yy} = -\mu^2 \omega^2 u_0 \]
-            with the boundary conditions $u_0 = 0$ for $y = \pm 1$.
+            with the boundary conditions $u_0 = 0$ for $y = 0$ and $y = 1$.
             Rewriting this equation as
             \[ u_{0,yy} + (\mu^2 \omega^2 - \theta_x^2) u_0 = 0 ,\]
             we see it is an eigenvalue problem and is in fact the eikonal problem. As in the membrane problem from class, by setting $\lambda = \sqrt{\mu^2 \omega^2 - \theta_x^2}$, we get the solution
             \begin{equation} \label{eq:u_0}
-               u_0(x,y) = A(x) \sin \left[ \lambda(y + 1) \right] ,
+               u_0(x,y) = A(x) \sin \left( \lambda y  \right) ,
             \end{equation}
-            where we must have $2 \lambda = n \pi$ in order to satisfy the boundary conditions. Thus we have
+            where we must have $\lambda = n \pi$ in order to satisfy the boundary conditions. Thus we have
             \[ \theta_x = \pm \sqrt{ \mu^2 \omega^2 - \lambda_n^2 } \text{ for } n = 1,2, \dots \]
-            where $\lambda_n = n \pi / 2$.
+            where $\lambda_n = n \pi$.
 
             Now we look at our $O(\varepsilon)$ equation:
             \[ -2i \theta_x u_{0,x} - \theta_x^2 u_1 - i \theta_{xx} u_0 + u_{1,yy} = -\mu^2 \omega^2 u_1 + i \omega \alpha u_0 ,\]
             which can be rewritten as
             \[ u_{1,yy} + \lambda_n^2 u_1 = i (\theta_{xx} u_0 + 2 \theta_x u_{0,x} + \omega \alpha u_0) \]
-            with the boundary condition $u_1 = 0$ at $y = \pm 1$.
+            with the boundary condition $u_1 = 0$ at $y = 0$ and $y = 1$.
 
-            To get our solvability condition, we multiply by $u_0$ and integrate from -1 to 1 in the $y$ direction. This gives
-            \[ \int_{-1}^{1} u_0 (u_{1,yy} + \lambda_n^2 u_1) dy = i \int_{-1}^{1} u_0 (\theta_{xx} u_0 + 2 \theta_x u_{0,x} + \omega \alpha u_0) dy \]
+            To get our solvability condition, we multiply by $u_0$ and integrate from 0 to 1 in the $y$ direction. This gives
+            \[ \int_{0}^{1} u_0 (u_{1,yy} + \lambda_n^2 u_1) dy = i \int_{0}^{1} u_0 (\theta_{xx} u_0 + 2 \theta_x u_{0,x} + \omega \alpha u_0) dy \]
             For the left-hand side, integrating by parts twice leaves
             \begin{align*}
-              \int_{-1}^{1} u_0 (u_{1,yy} + \lambda_n^2 u_1) dy
-              &= \int_{-1}^{1} u_1 ( u_{0,yy} + \lambda_n^2 u_0) dy \\
+              \int_{0}^{1} u_0 (u_{1,yy} + \lambda_n^2 u_1) dy
+              &= \int_{0}^{1} u_1 ( u_{0,yy} + \lambda_n^2 u_0) dy \\
               &= 0 \quad \parbox{4cm}{by the eikonal equation}
             \end{align*}
 
             So we have
             \begin{align*}
-              0 &= \int_{-1}^{1} u_0 (\theta_{xx} u_0 + 2 \theta_x u_{0,x} + \omega \alpha u_0) dy \\
-              &= \int_{-1}^{1} (\theta_x u_0^2)_x dy + \omega \alpha \int_{-1}^{1} u_0^2 dy \quad \parbox{4cm}{($\omega, \alpha$ are constant in $y$)} \\
-              &= \frac{d}{dx} \int_{-1}^{1} \theta_x u_0^2 dy + \omega \alpha A^2 \int_{-1}^{1} \sin^2 \left( \frac{n \pi}{2}(y+1) \right) dy \quad \parbox{4cm}{from equation \eqref{eq:u_0}} \\
-              &= \frac{d}{dx} \theta_x \int_{-1}^{1} u_0^2 dy + \omega \alpha A^2 \\
-              &= \frac{d}{dx} (\theta_x A^2) + \omega \alpha A^2
+              0 &= \int_{0}^{1} u_0 (\theta_{xx} u_0 + 2 \theta_x u_{0,x} + \omega \alpha u_0) dy \\
+              &= \int_{0}^{1} (\theta_x u_0^2)_x dy + \omega \alpha \int_{0}^{1} u_0^2 dy \quad \parbox{4cm}{($\omega, \alpha$ are constant in $y$)} \\
+              &= \frac{d}{dx} \int_{0}^{1} \theta_x u_0^2 dy + \omega \alpha A^2 \int_{0}^{1} \sin^2 \left( n \pi y \right) dy \quad \parbox{4cm}{from equation \eqref{eq:u_0}} \\
+              &= \frac{d}{dx} \theta_x \int_{0}^{1} u_0^2 dy + \frac{1}{2} \omega \alpha A^2 \\
+              &= \frac{d}{dx} (\theta_x A^2) + \frac{1}{2} \omega \alpha A^2
             \end{align*}
 
             Therefore, we have
-            \[ (A^2)' \theta_x + (\theta_{xx} + \omega \alpha) A^2 = 0 \]
+            \[ (A^2)' \theta_x + (\theta_{xx} + \frac{1}{2} \omega \alpha) A^2 = 0 \]
+            We make the substitution $B = A^2$ to give the differential equation
+            \[ B' \theta_x + (\theta_{xx} + \frac{1}{2} \omega \alpha) B = 0 .\]
             Rewriting, we have
-            \[ \frac{(A^2)'}{A^2} = - \frac{\theta_{xx} + \omega \alpha}{\theta_x} .\]
+            \[ B' + \frac{2 \theta_{xx} + \omega \alpha}{2 \theta_x} B = 0 .\]
+
+            Using an integrating factor, we can see that
+            \begin{align*}
+              A &= \pm \sqrt{B} \\
+              &= C e^{\frac{1}{2} \int_{}^{} \frac{2 \theta_{xx} + \omega \alpha}{2 \theta_x} dx}
+            \end{align*}
+            for a constant $C$. Our solution is then given by
+            \[ u_0(x,y) = A(x) \sin (\lambda_n y) \]
+            with $A$ as above.
 
         \item
       \end{enumerate}
