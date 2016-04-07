@@ -55,13 +55,13 @@
           \[ \frac{\partial^2 y_1}{\partial t_1^2} + y_1 = 2 \left(
             \frac{\partial A}{\partial t_2} \sin \tau +
             A \frac{\partial \phi}{\partial t_2} \cos \tau \right)
-          - f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) \]
+          - f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) \]
 
         \item In order to avoid secular terms, show that the conditions to be
           satisfied are:
-          \[ \frac{\partial A}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) \sin \tau d \tau \]
+          \[ \frac{\partial A}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) \sin \tau d \tau \]
           and
-          \[ A \frac{\partial \phi}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) \cos \tau d \tau .\]
+          \[ A \frac{\partial \phi}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) \cos \tau d \tau .\]
 
         \item Use the above result to discuss the steady state and limit cycle when $f = (y^4 - 1) y'$.
 
@@ -105,7 +105,7 @@
           \begin{align*}
             f(y, y') &= f \left (y_0 + \varepsilon y_1 + \dots, y_0' + \varepsilon y_1' + \dots \right) \quad \text{where derivatives are with respect to $t$} \\
             &= f \left( y_0, \frac{\partial y_0}{\partial t} \right)+ O(\varepsilon) \\
-            &= f \left( y_0, \frac{\partial y_0}{\partial t_1} + \varepsilon \frac{\partial y_0}{\partial t_2} \right) \\
+            &= f \left( y_0, \frac{\partial y_0}{\partial t_1} + \varepsilon \frac{\partial y_0}{\partial t_2} \right) + O(\varepsilon) \\
             &= f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) + O(\varepsilon)
           \end{align*}
 
@@ -114,7 +114,7 @@
 
           We already found $y_0$, so from here, we can calculate
           \begin{align*}
-            \frac{\partial^2 y_0}{\partial t_2 \partial t_2} &= \frac{\partial^2}{\partial t_1 \partial t_2} \big( A(t_2) \cos(t_1 + \phi(t_2) \big) \\
+            \frac{\partial^2 y_0}{\partial t_1 \partial t_2} &= \frac{\partial^2}{\partial t_1 \partial t_2} \big( A(t_2) \cos(t_1 + \phi(t_2) \big) \\
             &= \frac{\partial}{\partial t_1} \left( \frac{\partial A}{\partial t_2} \cos(t_1 + \phi(t_2)) - A \frac{\partial \phi}{\partial t_2}
             \sin(t_1 + \phi(t_2)) \right) \\
             &= -\frac{\partial A}{\partial t_2} \sin(t_1 + \phi(t_2)) - A \frac{\partial \phi}{\partial t_2}
@@ -135,7 +135,6 @@
           For convenience, we will write the operator $L = \frac{\partial^2}{\partial t_1^2} + 1$ and denote $(.,.)_{L^2(0,2\pi)}$ as $(.,)$. Then we have
           \begin{align*}
             (L y_1, u) &= (y_1, Lu) \quad \text{integrating by parts twice} \\
-            &= (y_1, Au) \\
             &= (y_1, 0) \\
             &= 0
           \end{align*}
@@ -319,6 +318,23 @@
           \end{cases} \]
 
         \item
+          In part (a), we found our approximation to the time-independent Schr\"{o}dinger equation to be
+          \[ \psi \sim \begin{cases}
+              \frac{1}{|q(x)|^{1/4}} \left[ 2 a_R \cos \left( \frac{1}{\varepsilon} \theta_1(x) - \frac{\pi}{4} \right) + b_R \cos \left(
+              \frac{1}{\varepsilon} \theta_1(x) + \frac{\pi}{4} \right) \right] &\text{if } x < a \\
+              \frac{1}{q(x)^{1/4}} \left( a_R e^{-\kappa_1(x)/\varepsilon} + b_R e^{\kappa_1(x)/\varepsilon} \right) &\text{if } a < x < b \\
+              \frac{1}{|q(x)|^{1/4}} \left[ 2 e^C b_R \cos \left( \frac{1}{\varepsilon} \kappa_2(x) - \frac{\pi}{4} \right) + e^{-C} a_R \cos \left(
+              \frac{1}{\varepsilon} \kappa_2(x) + \frac{\pi}{4} \right) \right] &\text{if } b < x
+          \end{cases} \]
+
+          For the time-dependent Schr\"{o}dinger equation, we are taking our solution to be $\Psi = \exp{-iEt} \psi(x)$. Therefore our solution to the
+          left and right of the barrier will be given by
+          \[ \Psi(x,t) \sim \begin{cases}
+              \frac{\exp(-iEt)}{|q(x)|^{1/4}} \left[ 2 a_R \cos \left( \frac{1}{\varepsilon} \theta_1(x) - \frac{\pi}{4} \right) + b_R \cos \left(
+              \frac{1}{\varepsilon} \theta_1(x) + \frac{\pi}{4} \right) \right] &\text{if } x < a \\
+              \frac{\exp(-iEt)}{|q(x)|^{1/4}} \left[ 2 e^C b_R \cos \left( \frac{1}{\varepsilon} \kappa_2(x) - \frac{\pi}{4} \right) + e^{-C} a_R \cos \left(
+              \frac{1}{\varepsilon} \kappa_2(x) + \frac{\pi}{4} \right) \right] &\text{if } b < x
+          \end{cases} \]
       \end{enumerate}
 
     \end{solution}
