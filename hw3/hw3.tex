@@ -6,7 +6,7 @@
 \documentclass[a4paper]{article}
 
 \title{Math 8402 Homework 3 }
-\date{4/4/16}
+\date{4/8/16}
 \author{Trevor Steil}
 
 \usepackage{amsmath}
@@ -55,13 +55,13 @@
           \[ \frac{\partial^2 y_1}{\partial t_1^2} + y_1 = 2 \left(
             \frac{\partial A}{\partial t_2} \sin \tau +
             A \frac{\partial \phi}{\partial t_2} \cos \tau \right)
-          - f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) \]
+          - f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) \]
 
         \item In order to avoid secular terms, show that the conditions to be
           satisfied are:
-          \[ \frac{\partial A}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) \sin \tau d \tau \]
+          \[ \frac{\partial A}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) \sin \tau d \tau \]
           and
-          \[ A \frac{\partial \phi}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) \cos \tau d \tau .\]
+          \[ A \frac{\partial \phi}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) \cos \tau d \tau .\]
 
         \item Use the above result to discuss the steady state and limit cycle when $f = (y^4 - 1) y'$.
 
@@ -106,7 +106,7 @@
             f(y, y') &= f \left (y_0 + \varepsilon y_1 + \dots, y_0' + \varepsilon y_1' + \dots \right) \quad \text{where derivatives are with respect to $t$} \\
             &= f \left( y_0, \frac{\partial y_0}{\partial t} \right)+ O(\varepsilon) \\
             &= f \left( y_0, \frac{\partial y_0}{\partial t_1} + \varepsilon \frac{\partial y_0}{\partial t_2} \right) + O(\varepsilon) \\
-            &= f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) + O(\varepsilon)
+            &= f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) + O(\varepsilon)
           \end{align*}
 
           Plugging in the derivatives of our expansion of $y$ and the Taylor series of $f$ into our equation, we get the $O(\varepsilon)$ equation
@@ -125,7 +125,7 @@
 
           This simplifies our $O(\varepsilon)$ equation to
           \[ \frac{\partial^2 y_1}{\partial t_1^2} + y_1 = 2 \left( \frac{\partial A}{\partial t_2} \sin \tau + A \frac{\partial \phi}{\partial t_2}
-          \cos \tau \right) - f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) .\]
+          \cos \tau \right) - f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) .\]
 
         \item
           The differential equation we have is on ODE in $t_1$. By avoiding secular terms we want to get a solution that is $2 \pi$-periodic in $t_1$.
@@ -142,21 +142,42 @@
 
           We have that $\cos t_1$ and $\sin t_1$ form a basis for $\{ u | Lu=0\}$. We can add any phase to these basis functions, so we will use
           $\cos (t_1 + \phi(t_2))$ and $\sin (t_1 + \phi(t_2))$ as our basis. Using our expression for $L y_1$, we require that
-          \[ 0 = \bigintss_{0}^{2 \pi} \left[ 2 \left( \frac{\partial A}{\partial t_2} \sin (t_1 + \phi(t_2)) + A \frac{\partial \phi}{\partial t_2}
-          \cos( t_1 + \phi(t_2)) \right) - f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) \right] \sin( t_1 + \phi(t_2)) dt_1 \]
+          \[ 0 = \bigintss_{0}^{2 \pi} \left[ 2 \left( \frac{\partial A}{\partial t_2} \sin \tau + A \frac{\partial \phi}{\partial t_2}
+          \cos \tau \right) - f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) \right] \sin \tau d\tau \]
           and
-          \[ 0 = \bigintss_{0}^{2 \pi} \left[ 2 \left( \frac{\partial A}{\partial t_2} \sin (t_1 + \phi(t_2)) + A \frac{\partial \phi}{\partial t_2}
-          \cos( t_1 + \phi(t_2)) \right) - f \left( y_0, \frac{\partial y_0}{\partial t_1} \right) \right] \cos( t_1 + \phi(t_2)) dt_1 \]
+          \[ 0 = \bigintss_{0}^{2 \pi} \left[ 2 \left( \frac{\partial A}{\partial t_2} \sin \tau + A \frac{\partial \phi}{\partial t_2}
+          \cos \tau \right) - f \left( y_0, \frac{\partial y_0}{\partial \tau} \right) \right] \cos\tau d\tau \]
           Using the fact that $\int_{0}^{2 \pi} \cos^2 x dx = \int_{0}^{2 \pi} \sin^2 x dx = \pi$ and $\int_{0}^{2 \pi} \sin x \cos x dx = 0$, these
           conditions simplify to
-          \[ \frac{\partial A}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{ \partial t_1} \right) \sin (t_1 +
-          \phi(t_2)) dt_1 \]
+          \[ \frac{\partial A}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{ \partial \tau} \right) \sin \tau
+          d\tau \]
           and
-          \[ A \frac{\partial \phi}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{ \partial t_1} \right) \cos (t_1 +
-          \phi(t_2)) dt_1 \]
+          \[ A \frac{\partial \phi}{\partial t_2} = \frac{1}{2 \pi} \int_{0}^{2 \pi} f \left( y_0, \frac{\partial y_0}{ \partial \tau} \right) \cos
+          \tau dt_1 \]
 
 
         \item
+          We have $f = (y^4-1)y'$. By part (a), we know $y_0 = A(t_2) \cos \tau$. We also have the conditions from part (c) that we must satisfy:
+          \begin{align*}
+            A' &= - \frac{1}{2 \pi} \int_{0}^{2 \pi} \left( A^4 \cos^4 \tau - 1 \right) A \sin^2 \tau d\tau \\
+            &= - \frac{1}{2 \pi} \int_{0}^{2 \pi} ( A^5 \cos^4 \tau - A ) \sin^2 \tau d \tau \\
+            &= - \frac{A^5}{16} + \frac{A}{2}
+          \end{align*}
+
+          The solution to this differential equation is
+          \[ A(t_2) = \frac{2^{3/4}}{(C \exp(-x/2) + 1)^{1/4}} \]
+          for some constant $C$.
+
+          We also have the condition
+          \begin{align*}
+            A \varphi' &= - \frac{1}{2 \pi} \int_{0}^{2 \pi} (A^4 \cos^4 \tau - 1) A \sin \tau \cos \tau d\tau \\
+            &= 0
+          \end{align*}
+
+          Therefore, $\varphi = \alpha$ for some constant $\alpha$. This gives us that
+          \[ y_0 = \frac{2^{3/4}}{(1 + C \exp(-2x))^{1/4}} \cos(t_1 + \alpha) .\]
+
+          Therefore, we get the limit cycle being a circle of radius $2^{3/4}$.
       \end{enumerate}
 
     \end{solution}
@@ -208,20 +229,18 @@
 
       Moving on to the $O(\varepsilon)$ equation, we get
       \begin{align*}
-        \frac{\partial^2 y_1}{\partial t_1^2} + y_1 &= \frac{1}{2} (D(\varepsilon t))^{-3/2} \frac{\partial y_0}{\partial t_1} -
-        \frac{2}{\sqrt{D(\varepsilon t)}} \frac{\partial^2 y_0}{\partial t_1 \partial t_2} + D'(\varepsilon t) \frac{1}{\sqrt{D(\varepsilon t)}}
+        \frac{\partial^2 y_1}{\partial t_1^2} + y_1 &= \frac{1}{2} (D(\varepsilon t))^{-1/2} D'(\varepsilon t) \frac{\partial y_0}{\partial t_1} -
+        2 \sqrt{D(\varepsilon t)} \frac{\partial^2 y_0}{\partial t_1 \partial t_2} + D'(\varepsilon t) \frac{1}{\sqrt{D(\varepsilon t)}}
         \frac{\partial y_0}{\partial t_1} \\
-        &= \left( \frac{1}{2} D'(\varepsilon t) (D(\varepsilon t))^{-3/2} + D'(\varepsilon t) \frac{1}{\sqrt{D(\varepsilon t)}} \right) (A_0(t_2) \cos t_1 - B_0(t_2)
-        \sin t_1 ) \\
-        &\quad - \frac{2}{\sqrt{D(\varepsilon t)}} \left( \frac{\partial A_0}{\partial t_2} \cos t_1 - \frac{\partial B_0}{\partial t_2} \sin t_1
-        \right) \\
-        &= \left( \frac{A_0}{2} D' D^{-3/2} + \frac{A_0 D'}{\sqrt{D}} - \frac{2}{\sqrt{D}} \frac{\partial A_0}{\partial t_2} \right) \cos t_1
-        - \left( \frac{B_0}{2} D' D^{-3/2} + \frac{B_0 D'}{\sqrt{D}} - \frac{\partial B_0}{\partial t_2} \right) \sin t_1
+        &= \left( \frac{1}{2} D' (D(\varepsilon t))^{-1/2} + D'(\varepsilon t) (D(\varepsilon t))^{1/2} \right) (A_0(t_2) \cos t_1 - B_0(t_2) \sin t_1) \\
+        &\quad -2 \sqrt{D(\varepsilon t)} \left( \frac{\partial A_0}{ \partial t_2} \cos t_1 - \frac{\partial B_0}{\partial t_2} \sin t_1 \right) \\
+        &= \left( \frac{A_0}{2} D' D^{-1/2} + A_0 D' D^{1/2} - 2 D^{1/2} \frac{\partial A_0}{\partial t_2} \right) \cos t_1 \\
+        &\quad - \left( \frac{B_0}{2} D' D^{-1/2} + B_0 D' D^{1/2} - 2 D^{1/2} \frac{\partial B_0}{\partial t_2} \right) \sin t_1
       \end{align*}
 
       In order to prevent secular terms, we want
-      \[ \frac{A_0}{2} D' D^{-3/2} + \frac{A_0 D'}{\sqrt{D}} - \frac{2}{\sqrt{D}} \frac{\partial A_0}{\partial t_2} = \frac{B_0}{2} D' D^{-3/2} +
-      \frac{B_0 D'}{\sqrt{D}} - \frac{2}{\sqrt{D}} \frac{\partial B_0}{\partial t_2} = 0 .\]
+      \[ \frac{A_0}{2} D' D^{-1/2} + A_0 D' D^{1/2} - 2 D^{1/2} \frac{\partial A_0}{\partial t_2}
+      = \frac{B_0}{2} D' D^{-1/2} + B_0 D' D^{1/2} - 2 D^{1/2} \frac{\partial B_0}{\partial t_2} = 0 \]
 
       This first equation is
       \[ A_0' - \left( \frac{1}{4} D' D^{-1} + D' \right) A_0 = 0 .\]
