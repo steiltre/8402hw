@@ -103,6 +103,163 @@
     \end{problem}
 
     \begin{solution}
+      We write our functions in the form $f = f(x,y)$. Then we have
+      \begin{equation} \label{eqn:div_expansion}
+        \nabla = \nabla_x + \frac{1}{\varepsilon} \nabla_y .
+      \end{equation}
+
+      We expand $I$ and $S$ as
+      \begin{equation} \label{eqn:I_expansion}
+        I = I_0(x,y) + \varepsilon I_1(x,y) + \dots
+      \end{equation}
+      and
+      \begin{equation} \label{eqn:S_expansion}
+        S = S_0(x,y) + \varepsilon S_1(x,y) + \dots
+      \end{equation}
+
+      Because we assumed $D$ is periodic in y, we will assume all terms in equations \eqref{eqn:I_expansion} and \eqref{eqn:S_expansion} are periodic
+      in $y$ with the same period as $D$.
+
+      Plugging \eqref{eqn:div_expansion}, \eqref{eqn:I_expansion}, and \eqref{eqn:S_expansion} into our first equation gives
+      \begin{equation} \label{eqn:first_expansion}
+        (\nabla_x + \frac{1}{\varepsilon} \nabla_y) \cdot (D (\nabla_x + \frac{1}{\varepsilon} \nabla_y) (S_0 + \varepsilon S_1 + \dots) - \beta (S_0
+        + \varepsilon S_1 + \dots) (I_0 + \varepsilon I_1 + \dots) = 0.
+      \end{equation}
+
+      From here, we can find our $O(\frac{1}{\varepsilon^2})$ equation to be
+      \begin{equation} \label{eqn:O(1/eps^2)}
+        \nabla_y \cdot (D \nabla_y S_0) = 0.
+      \end{equation}
+
+      Multiplying by $S_0$ and integrating over $\Psi$, the periodic box determined by the period of $D$, we get
+      \begin{align*}
+        0 &= \int_{\Psi}^{} S_0 \nabla_y \cdot (D \nabla_y S_0) dy \\
+        &= \int_{\Psi}^{} D |\nabla_y S_0|^2 dy \quad \parbox{5cm}{by integrating by parts and using periodicity}
+      \end{align*}
+
+      Therefore, we know $|\nabla_y S_0|=0$ because $D>0$. So we know $S_0 = S_0(x)$ is independent of $y$.
+
+      Now from equation \eqref{eqn:first_expansion}, we get the $O(\frac{1}{\varepsilon})$ equation
+      \begin{equation}
+        \nabla_y \cdot (D \nabla_x S_0) + \nabla_x \cdot (D \nabla_y S_0) + \nabla_y \cdot (D \nabla_y S_1) = 0
+        \label{eqn:O(1/eps)}
+      \end{equation}
+
+      Because $S_0$ is independent of $y$, this simplifies to
+      \begin{equation}
+        \nabla_y \cdot( D \nabla_y S_1) = - \nabla_y D \cdot \nabla_x S_0
+        \label{eqn:simp_O(1/eps)}
+      \end{equation}
+
+      Let $\{ e_i \}$ denote the standard basis on $\R^2$. For $k = 1,2$, let $a_k$ satisfy
+      \begin{equation}
+        \begin{cases}
+          \nabla_y \cdot (D \nabla_y a_k) = - e_k \cdot \nabla_y D = - \frac{\partial D}{\partial y_k} \\
+          \int_{\Psi}^{} a_k dx = 0
+        \end{cases}
+        \label{eqn:a_k}
+      \end{equation}
+
+      Then we have
+      \begin{equation}
+        S_1 = (\nabla_x S_0) \cdot a + c_1(x)
+        \label{eqn:S_1}
+      \end{equation}
+      where
+      \begin{equation} \label{eqn:a}
+          a = \begin{pmatrix}
+            a_1 \\
+            a_2
+        \end{pmatrix}
+      \end{equation}
+      and $c_1$ is some function of $x$.
+
+      From equation \eqref{eqn:first_expansion}, we get the $O(1)$ equation
+      \begin{equation*}
+        \nabla_x \cdot (D \nabla_x S_0) + \nabla_y \cdot (D \nabla_x S_1) + \nabla_x \cdot (D \nabla_y S_1) + \nabla_y \cdot (D \nabla_y S_2) - \beta S_0 I_0 = 0
+      \end{equation*}
+
+      We can rewrite this as
+      \begin{equation}
+        \nabla_x \cdot \left[ D ( \nabla_x S_0 + \nabla_y S_1) \right] + \nabla_y \cdot \left[ D ( \nabla_x S_1 + \nabla_y S_2) \right] - \beta S_0
+        I_0 = 0
+        \label{eqn:O(1)}
+      \end{equation}
+
+      Then by periodicity and the divergence theorem
+      \begin{align*}
+        \int_{\Psi}^{} \nabla_y \cdot \left[ D( \nabla_x S_1 + \nabla_y S_2) \right] dy = 0
+      \end{align*}
+
+      Using Einstein summation notation, we calculate
+      \begin{align*}
+        \nabla_x \cdot \left[ D (\nabla_x S_0 + \nabla_y S_1) \right] &= \nabla_x \cdot \left[ D ( \nabla_x S_0 + \nabla_y ( (  \nabla_x S_0 ) \cdot
+        a) ) \right] \\
+        &= \frac{\partial}{\partial {x_i}} \left( D \left( \frac{\partial}{\partial {x_i}} S_0 + \frac{\partial}{\partial {y_i}} \left( \frac{\partial
+        S_0}{\partial x_j} a_j \right) \right) \right) \\
+        &= \frac{\partial}{\partial x_i} \left( D \left( \frac{\partial}{\partial x_i} S_0 + \frac{\partial S_0}{\partial x_j} \frac{\partial
+        a_j}{\partial y_i} \right) \right) \\
+        &= \frac{\partial}{\partial x_i} \left( D \left( \delta_{ij} + \frac{\partial a_j}{\partial y_i} \right) \frac{\partial S_0}{\partial x_j}
+        \right)
+      \end{align*}
+
+      We define $\hat{D}$ by
+      \begin{equation}
+        \hat{D}_{ij} = \frac{1}{|\Psi|} \int_{\Psi}^{} D \left( \delta_ij + \frac{\partial a_j}{\partial y_i} \right) dy
+        \label{eqn:D_ij}
+      \end{equation}
+
+      Averaging equation \eqref{eqn:O(1)} over $\Psi$ we get our first homogenized equation
+      \begin{equation}
+        \la \beta S_0 I_0 \ra = \frac{\partial}{\partial x_i} \hat{D}_{ij} \frac{\partial S_0}{\partial x_j} = \nabla \cdot (\hat{D} \nabla S_0 )
+        \label{eqn:first_hom}
+      \end{equation}
+      where
+      \[ \la f \ra = \frac{1}{|\Psi|} \int_{\Psi}^{} f dy .\]
+
+      We perform similar steps for the second equation. By plugging \eqref{eqn:div_expansion}, \eqref{eqn:I_expansion}, and \eqref{eqn:S_expansion}
+      into our second equation, we get
+      \begin{equation}
+        (\nabla_x + \frac{1}{\varepsilon} \nabla_y) \cdot ( D (\nabla_x + \frac{1}{\varepsilon} \nabla_y) (I_0 + \varepsilon I_1 + \dots) + \beta (S_0
+        + \varepsilon S_1 + \dots) (I_0 + \varepsilon I_1 + \dots) - \lambda (I_0 + \varepsilon I_1 + \dots) = 0
+        \label{eqn:second_expansion}
+      \end{equation}
+
+      From here we can find our $O(\frac{1}{\varepsilon^2})$ equation to be
+      \begin{equation}
+        \nabla_y \cdot(D \nabla_y I_0) = 0
+        \label{eqn:second_O(1/eps^2)}
+      \end{equation}
+
+      Just as before, this shows us that $I_0 = I_0(x)$ is independent of $y$.
+
+      From equation \eqref{eqn:second_expansion}, we get the $O(\frac{1}{\varepsilon})$ equation, we get
+      \begin{equation}
+        \nabla_x \cdot ( D \nabla_y I_0) + \nabla_y \cdot ( D \nabla_x I_0 ) + \nabla_y \cdot ( D \nabla_y I_1) = 0
+        \label{eqn:second_O(1/eps)}
+      \end{equation}
+
+      As before, we can use this to write
+      \begin{equation}
+        I_1 = (\nabla_x I_0) \cdot a + c_2(x)
+        \label{eqn:I_1}
+      \end{equation}
+      with $a$ defined by equations \eqref{eqn:a_k} and \eqref{eqn:a}.
+
+      From equation \eqref{eqn:second_expansion}, we get the $O(1)$ equation
+      \begin{equation}
+        \nabla_x \cdot \left[ D( \nabla_x I_0 + \nabla_y I_1 ) \right] + \nabla_y \cdot \left[ D ( \nabla_x I_1 + \nabla_y I_2 ) \right] + \beta S_0
+        I_0 - \lambda I_0 = 0
+        \label{eqn:second_O(1)}
+      \end{equation}
+
+      Then using periodicity and the divergence theorem again, we get
+      \[ \int_{\Psi}^{} \nabla_y \cdot \left[ D ( \nabla_x I_1 + \nabla_y I_2 ) \right] dy = 0 .\]
+      By averaging equation \eqref{eqn:second_O(1)} over $\Psi$ in the same way as for our first equation, we get the second homogenized equation
+      \begin{equation}
+        \la \beta S_0 I_0 - \lambda I_0 \ra = \nabla \cdot ( \hat{D} \nabla I_0 )
+        \label{eqn:second_hom}
+      \end{equation}
     \end{solution}
 
 \end{enumerate}
