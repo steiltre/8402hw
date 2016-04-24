@@ -61,7 +61,7 @@
 
         \item Using an argument similar to that used in part (b), show that the ray for $u_T$ is in the plane of incidence and $\mu_+ \sin \varphi_i =
           \mu_- \sin \varphi_t$. This is known as Snell's law of refraction. Also, $\mu_+$ is the limiting value of $\mu$ when approaching $S$ from
-          the incident side and $\mu_0$ the limiting value coming from the transmitted side.
+          the incident side and $\mu_-$ the limiting value coming from the transmitted side.
 
         \item As shown in part (c), the transmitted angle is determined from the equation $\sin \varphi_t = (\mu_+/\mu_-) \sin \varphi_i$. If $\mu_+ >
           \mu_-$, then there are incident angles such that $(\mu_+/\mu_-) \sin \varphi_i > 1$, and this means there is no real-valued solution for the
@@ -77,10 +77,89 @@
     \begin{solution}
       \begin{enumerate}
         \item
+          Because $\nabla \theta_I - (\partial_n \theta_I) \mathbf{n} = \nabla \theta_R - (\partial_n \theta_R) \mathbf{n}$, using the eikonal
+          equation gives us
+          \begin{align*}
+            \mu_+^2 - (\partial_n \theta_I)^2 &= \mu_+^2 - 2(\partial_n \theta_I)^2 + (\partial_n \theta_I)^2 \\
+            &= (\nabla \theta_I - (\partial_n \theta_I) \mathbf{n}) \cdot (\nabla \theta_I - (\partial_n \theta_I) \mathbf{n}) \\
+            &= (\nabla \theta_R - (\partial_n \theta_R) \mathbf{n}) \cdot (\nabla \theta_R - (\partial_n \theta_R) \mathbf{n}) \\
+            &= \mu_+^2 - 2(\partial_n \theta_R)^2 + (\partial_n \theta_R)^2  \\
+            &= \mu_+^2 - (\partial_n \theta_I)^2
+          \end{align*}
+
+          Therefore,
+          \[ (\partial_n \theta_I)^2 = (\partial_n \theta_R)^2 .\]
+
+          We have the transmission coefficient
+          \[ T(x) = \frac{\partial_n \theta_I - \partial_n \theta_R}{\partial_n \theta_T - \partial_n \theta_R} .\]
+          If we had $\partial_n \theta_I = \partial_n \theta_R$, our transmission coefficient would always be 0, so we must have $\partial_n \theta_R
+          = - \partial_n \theta_I$.
+
+        \item
+          By equation 4.124 in Holmes, we know
+          \[ \partial_s \mathbf{X_I} = \lambda \nabla \theta_I \]
+          Therefore,
+          \begin{align*}
+            \nabla \theta_I \cdot (\mathbf{n} \times \partial_s \mathbf{X}_I) &= \frac{1}{\lambda} \partial_x \mathbf{X}_I \cdot ( \mathbf{n} \times
+            \partial_s \mathbf{X}_I ) \\
+            &= 0
+          \end{align*}
+
+          Using part (a), we find
+          \[ \nabla \theta_I - \nabla \theta_R = 2 \partial_n \theta_I \mathbf{n} .\]
+
+          Using these facts, we get
+          \begin{align*}
+            - \nabla \theta_R \cdot (\mathbf{n} \times \partial_s \mathbf{X}_I ) &= ( \nabla \theta_I - \nabla \theta_R) \cdot ( \mathbf{n} \times
+            \partial_s \mathbf{X}_I) \\
+            &= 2 \partial_n \theta_I \mathbf{n} \cdot (\mathbf{n} \times \partial_s \mathbf{X}_I) \\
+            &= 0
+          \end{align*}
+
+          Because $\nabla \theta_R$ is perpendicular to a vector normal to the plane of incidence, $\nabla \theta_R$ must lie in the plane of
+          incidence.
+
+          We also have
+          \begin{align*}
+            \mu_+ \cos \varphi_i &= | \nabla \theta_I | \cos \varphi_i \quad \parbox{5cm}{using the eikonal equation} \\
+            &= | \nabla \theta_I \cdot \mathbf{n} | \\
+            &= | \partial_n \theta_I | \\
+            &= | \partial_n \theta_R | \quad \parbox{5cm}{by part (a)} \\
+            &= | \nabla \theta_R \cdot \mathbf{n} | \\
+            &= | \nabla \theta_R | \cos \varphi_r \\
+            &= \mu_+ \cos \varphi_r \quad \parbox{5cm}{by the eikonal equation}
+          \end{align*}
+
+          Therefore, $\cos \varphi_i = \cos \varphi_r$, and because all angles are between 0 and $\frac{\pi}{2}$, we know $\varphi_i = \varphi_r$.
 
         \item
 
-        \item
+          We get that $\nabla \theta_I - (\partial_n \theta_I) \mathbf{n} = \nabla \theta_T - (\partial_n \theta_R) \mathbf{n}$. Similar to part (b),
+          we get
+          \[ \nabla \theta_I - \nabla \theta_T = 2 \partial_n \theta_I \mathbf{n} .\]
+          Then
+          \begin{align*}
+            - \nabla \theta_T \cdot ( \mathbf{n} \times \partial_s \mathbf{X}_I) &= (\nabla \theta_I - \nabla \theta_R) \times (\mathbf{n} \times
+            \partial_s \mathbf{X}_I) \\
+            &= 2 \partial_n \theta_I \mathbf{n} \cdot (\mathbf{n} \times \partial_s \mathbf{X}_I ) \\
+            &= 0
+          \end{align*}
+
+          Therefore, $\nabla \theta_T$ is in the plane of incidence, and the ray for $u_T$ is as well.
+
+          As shown in the book, we have
+          \[ (\partial_n \theta_T)^2 = \mu_-^2 - \mu_+^2 + (\partial_n \theta_I)^2 .\]
+
+          Therefore
+          \begin{align*}
+            ( |\nabla \theta_T | \cos \varphi_t )^2 &= \mu_-^2 - \mu_+^2 + ( |\nabla \theta_I | \cos \varphi_i)^2 \\
+            \mu_-^2 \cos^2 \varphi_t &= \mu_-^2 - \mu_+^2 + \mu_+^2 \cos^2 \varphi_i \quad \parbox{4cm}{by the eikonal equation} \\
+            \mu_-^2 ( \cos^2 \varphi_t - 1) &= \mu_+^2 ( \cos^2 \varphi_i - 1 ) \\
+            - \mu_-^2 \sin^2 \varphi_t &= - \mu_+^2 \sin^2 \varphi_i
+          \end{align*}
+
+          Because $0 < \varphi_i, \varphi_t < \frac{\pi}{2}$, we have
+          \[ \mu_- \sin \varphi_t = \mu_+ \sin \varphi_i .\]
 
         \item
 
