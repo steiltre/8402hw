@@ -1,0 +1,261 @@
+%        File: final.tex
+%     Created: Thu May 05 09:00 PM 2016 C
+% Last Change: Thu May 05 09:00 PM 2016 C
+%
+
+\documentclass[a4paper]{article}
+
+\title{Math 8402 Take-Home Final }
+\date{5/13/16}
+\author{Trevor Steil}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{esint}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem*{claim}{Claim}
+\newtheorem*{problem}{Problem}
+%\newtheorem*{lemma}{Lemma}
+\newtheorem{definition}{Definition}[section]
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\supp}[1]{\mathop{\mathrm{supp}}\left(#1\right)}
+\newcommand{\lip}[1]{\mathop{\mathrm{Lip}}\left(#1\right)}
+\newcommand{\curl}{\mathrm{curl}}
+\newcommand{\la}{\left \langle}
+\newcommand{\ra}{\right \rangle}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+\newenvironment{solution}{\emph{Solution.}}
+
+\begin{document}
+\maketitle
+\begin{enumerate}
+  \item
+    \begin{problem}
+      Consider the following equation:
+      \begin{equation}
+        \frac{\partial u}{\partial t} = \frac{\partial}{\partial x} \left( \frac{1}{\varepsilon} b \left( \frac{x}{\varepsilon} \right) u + D
+        \frac{\partial u}{\partial x} \right)
+        \label{eqn:prob1_1}
+      \end{equation}
+      where $D>0$ and $b(y)$ is a periodic function in $y$ with period 1 whose average is equal to 0:
+      \begin{equation}
+        \int_{0}^{1} b(y) dy = 0
+        \label{eqn:prob1_2}
+      \end{equation}
+
+      We will be interested in positive soltuions ($u>0$). Assume that $u(x,t)$ can be written as:
+      \begin{equation}
+        u(x,t) = u(x,y,t) = u_0(x,y,t) + \varepsilon u_1(x,y,t) + \varepsilon^2 u_2(x,y,t) + \dots
+        \label{eqn:prob1_3}
+      \end{equation}
+      where $y = \frac{x}{\varepsilon} $.
+
+      \begin{enumerate}
+        \item Show that $u_0(x,y,t)$ can be written as:
+          \begin{equation}
+            u_0(x,y,t) = \widehat{u} (x,t) v_0(y)
+            \label{eqn:prob1_4}
+          \end{equation}
+          where $v_0(y)$ is a function that does not depend on $x$ or $t$.
+
+        \item Show that $\widehat{u}(x,t)$ satisfies the equation:
+          \begin{equation}
+            \frac{\partial \widehat{u}}{\partial t} = \widehat{D} \frac{\partial^2 \widehat{u}}{\partial x^2} .
+            \label{eqn:prob1_5}
+          \end{equation}
+          Obtain an explicit expression for $\widehat{D}$ and show that $\widehat{D}$ is never greater than $D$.
+
+      \end{enumerate}
+
+    \end{problem}
+
+    \begin{solution}
+
+      \begin{enumerate}
+        \item
+
+        \item
+
+      \end{enumerate}
+
+    \end{solution}
+
+  \item
+    \begin{problem}
+      Consider the system:
+      \begin{align}
+        \varepsilon \frac{\partial u}{\partial t} &= \varepsilon^2 \frac{\partial^2 u}{\partial x^2} + f(u,v), f(u,v) = u(1-u)(u-1-v),
+        \label{eqn:prob2_1} \\
+        \varepsilon \frac{\partial v}{\partial t} &= \frac{\partial^2 v}{\partial x^2} - f(u,v)
+        \label{eqn:prob2_2}
+      \end{align}
+      posed on $0 < x < 1$ with boundary conditions:
+      \begin{equation}
+        \frac{\partial u}{\partial x} = \frac{\partial v}{\partial x} = 0 \text{ at } x = 0,1.
+        \label{eqn:prob2_3}
+      \end{equation}
+      Values of $u$ and $v$ are assumed positive.
+
+      \begin{enumerate}
+        \item Show that, to leading order, $v$ is constant in $x$ (but may vary in time) and $u$ can only take values 0 or $1_v$.
+
+        \item Given the above result, there must be one or more sharp transition layers within the domain, across which $u$ changes from 0 to $1+v$.
+          Let there be one such front, and let $\varphi(t)$ be the position of this front; to leading order suppose
+          \begin{equation}
+            u = \begin{cases}
+              1+v &\text{if } x< \varphi(t), \\
+              0 &\text{if } x > \varphi(t).
+            \end{cases}
+            \label{eqn:prob2_4}
+          \end{equation}
+          Find an ordinary differential equation satisfied by this front position.
+      \end{enumerate}
+
+      In solving the above problem, it may be useful to use the following fact. Suppose we are given the equation:
+      \begin{align}
+        -c \frac{dw}{d \xi} &= \frac{\partial^2 w}{\partial \xi^2} + w(1-w)(w-b), b>1,
+        \lim_{\xi \to - \infty} w(\xi) &= b, \lim_{\xi \to \infty} w(\xi) = 0.
+        \label{eqn:prob2_10}
+      \end{align}
+      Then, there is a solution $w$ only when:
+      \begin{equation}
+        c = \frac{1}{\sqrt{2}} (b-2)
+        \label{eqn:prob2_6}
+      \end{equation}
+      and $w$ is given by:
+      \begin{equation}
+        w = \frac{b}{2} \left( 1 + \tanh \left( \frac{b \xi}{ \sqrt{2} } + k \right) \right)
+        \label{eqn:prob2_7}
+      \end{equation}
+      where $k$ is arbitrary.
+
+    \end{problem}
+
+    \begin{solution}
+      \begin{enumerate}
+        \item
+
+        \item
+
+      \end{enumerate}
+
+    \end{solution}
+
+  \item
+    \begin{problem}
+      Consider the following Cahn-Hilliard equation in $\Omega \subset \R^2$
+      \begin{equation}
+        \frac{\partial u}{\partial t} = - \Delta \left( \varepsilon \Delta u + \frac{1}{\varepsilon} f(u) \right),
+        \label{eqn:prob3_1}
+      \end{equation}
+      where $f(u)$ is the usual cubic nonlinearity as in the Allen-Cahn equation. The stable roots are at $u=0$ and $u=1$, and we consider the
+      balanced case:
+      \begin{equation}
+        \int_{0}^{1} f(s) ds = 0
+        \label{eqn:prob3_2}
+      \end{equation}
+
+      Rewrite this equation as:
+      \begin{align}
+        \frac{\partial u}{\partial t} &= \Delta w \label{eqn:prob3_3} \\
+        -w &= \varepsilon \Delta u + \frac{1}{\varepsilon} f(u).
+        \label{eqn:prob3_4}
+      \end{align}
+
+      The boundary conditions imposed are:
+      \begin{equation}
+        \frac{\partial u}{\partial n} = \frac{\partial w}{\partial n} = 0 \text{ on } \partial \Omega
+        \label{eqn:prob3_5}
+      \end{equation}
+      Thus, no-flux boundary conditions are imposed on both $u$ and $w$.
+
+      \begin{enumerate}
+        \item Expand $u$ and $w$ as:
+          \begin{equation}
+            u = u_0 + \varepsilon u_1 + \dots, w = w_0 + \varepsilon w_1 + \dots
+            \label{eqn:prob3_6}
+          \end{equation}
+          and find the equations satisfied by $u_0$ and $w_0$. You should find that there will be regions where either $u_0 = 0$ or $u_0 = 1$.
+
+        \item
+          Let $\Gamma$ be the interface separating the region where $u_0 = 0$ and $u_0 = 1$. Introduce a moving coordinate system that fits with
+          $\Gamma$ and find the equations in the inner transition layers together with matching conditions.
+
+        \item
+          Show that $w_0$ satisfies the following \textit{Mullins Sekerka} problem:
+          \begin{align}
+            \Delta w_0 &= 0 \text{ on } \Omega \setminus \Gamma \label{eqn:prob3_7} \\
+            w_0 &= -A \kappa, v = \left[ \frac{\partial w_0}{\partial \nu} \right] \text{ on } \Gamma
+            \label{eqn:prob3_8}
+          \end{align}
+          where $A$ is a positive constant that only depends on the cubic nonlinearity $f$, $\kappa$ is the curvature of the curve $\Gamma$ and $`N$
+          is the unit normal vector on $\Gamma$, and $v$ is the normal velocity of the curve $\Gamma$.
+
+      \end{enumerate}
+
+    \end{problem}
+
+    \begin{solution}
+
+      \begin{enumerate}
+        \item
+
+        \item
+
+        \item
+
+      \end{enumerate}
+
+    \end{solution}
+
+  \item
+      \begin{problem}
+      Consider a fluid placed between two plates that are a distance $\varepsilon L$ apart. In terms of coordinates, the two plates correspond to $z=0$
+      and $z = \varepsilon L(x,y)$, where $L(x,y)$ is some function of $x$ and $y$. The equation satisfied by the fluid is:
+      \begin{align}
+        \mu \Delta \mathbf{u} = \nabla p, \nabla \cdot \mathbf{u} &= 0 \text{ for } 0 < z < \varepsilon L \label{eqn:prob4_1} \\
+        \mathbf{u} &= 0 \text{ on } z = 0, \varepsilon L
+        \label{eqn:prob4_2}
+      \end{align}
+      We consider the limit when $\varepsilon$ is small. Such a flow is called \textit{Hele-Shaw flow}.
+
+      \begin{enumerate}
+        \item Let $\mathbf{u} = (u,v,w)^T$. Rescale the equations so that $z = \varepsilon Z.$
+
+        \item Expand $u,v,w,p$ in powers of $\varepsilon$ (let $u = u_0 + \varepsilon u_1 + \varepsilon^2 u_2 + \dots$ and so on). Show that $u_0, u_1,
+          v_0, v_1, w_0, w_1, w_2$ are all 0. Show that $p_0$ does not depend on $Z$. (This shows that the leading order contribution to the velocity
+          is oder $\varepsilon^2$).
+
+        \item Find the equations satisfied by $p_0, u_2, v_2$.
+
+      \end{enumerate}
+
+    \end{problem}
+
+    \begin{solution}
+
+      \begin{enumerate}
+        \item
+
+        \item
+
+        \item
+
+      \end{enumerate}
+
+    \end{solution}
+
+  \end{enumerate}
+\end{document}
+
+
