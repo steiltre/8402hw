@@ -83,6 +83,25 @@
 
       \begin{enumerate}
         \item
+          Because $y = \frac{x}{\varepsilon}$, we write our equation as
+          \[ \frac{\partial u}{\partial t} = \left( \frac{\partial}{\partial x} + \frac{1}{\varepsilon} \right) \left( \frac{1}{\varepsilon} b(y) u +
+          D \left( \frac{\partial}{\partial x} + \frac{1}{\varepsilon} \frac{\partial}{\partial y} \right) u \right) .\]
+
+          By expanding $u$ asymptotically, we get the $O \left( \frac{1}{\varepsilon^2} \right)$ equation
+          \begin{align*}
+            0 &= \frac{\partial}{\partial y} ( b(y) u_0 ) + \frac{\partial}{\partial y} \left( D \frac{\partial}{\partial y} u_0 \right) \\
+            &= \frac{\partial}{\partial y} \left( b(y) u_0 + D \frac{\partial}{\partial y} u_0 \right)
+          \end{align*}
+          Therefore,
+          \[ b(y) u_0 + D \frac{\partial}{\partial y} u_0 = \widehat{u} (x,t) \]
+          for some function $\widehat{u}$.
+
+          Then finding an integrating factor gives
+          \[ \frac{\partial}{\partial y} \left( u_0 \exp \left( \frac{1}{D} \int_{0}^{y} b(z) dz \right) \right) = \frac{\widehat{u}}{D} .\]
+          Therefore,
+          \[ u_0 = \widehat{u}(x,t) v_0(y) \]
+          where
+          \[ v_0(y) = y \exp \left( \frac{1}{D} \int_{0}^{y} b(z) dz \right) .\]
 
         \item
 
@@ -144,8 +163,62 @@
     \begin{solution}
       \begin{enumerate}
         \item
+          We expand
+          \[ u = u_0 + \varepsilon u_1 + \dots \]
+          and
+          \[ v = v_0 + \varepsilon v_1 + \dots \]
+
+          Then our $O(1)$ system is
+          \[ \begin{cases}
+              0 &= f(u_0,v_0) \\
+              0 &= \frac{\partial^2 v_0}{\partial x_2} - f(u_0, v_0)
+          \end{cases} \]
+          where we have used a Taylor series expansion for $f$.
+          By the first equation and the form of our nonlinearity, we know $u_0 = 0,1,1+v$. As in class, $1$ is an unstable fixed point for
+          $\frac{\partial u}{\partial t} = f(u,v)$ because $v > 0$, so $u_0 = 0$ or $u_0 = 1+v$.
+
+          By putting our first equation into our second, we get
+          \[ \frac{\partial^2 v_0}{\partial x^2} = 0 .\]
+          Solving this with the boundary conditions $\frac{\partial v_0}{\partial x} = 0$ at $x=0,1$ gives the solution
+          \[ v_0 = c(t) \]
+          for some function $c$ depending only on time.
 
         \item
+          We introduce the boundary layer coordinates
+          \[ x = \varphi(t) + \varepsilon \xi \]
+          and the boundary layer solutions $U,V$ such that
+          \[ U( \xi, t ) = u( \varphi(t) + \varepsilon \xi, t ), u(x,t) = U \left( \frac{x-\partial(t)}{\varepsilon}, t \right) \]
+          and
+          \[ V( \xi, t ) = v( \varphi(t) + \varepsilon \xi, t ), v(x,t) = V \left( \frac{x-\partial(t)}{\varepsilon}, t \right) \]
+
+          Inserting these solutions into our original system gives the system
+          \[ \begin{cases}
+              - \varphi'(t) \frac{\partial U}{\partial \xi} + \varepsilon \frac{\partial U}{\partial t} &= \frac{\partial^2 U}{\partial \xi^2} +
+              f(U,V) \\
+              - \varphi'(t) \frac{\partial V}{\partial \xi} + \varepsilon \frac{\partial V}{\partial t} &= \frac{1}{\varepsilon^2}
+              \frac{\partial^2 V}{\partial \xi^2} - f(U,V)
+          \end{cases} \]
+
+          First we verify that $V$ is (to leading order) remaining constant in the boundary layer (as we expect).
+
+          By expanding $V$ asymptotically, we get the $O \left( \frac{1}{\varepsilon^2} \right)$ equation
+          \begin{align*}
+            &\frac{\partial^2 V_0}{\partial \xi^2} = 0 \\
+            &\lim_{\xi \to -\infty} V_0 = c(t) \\
+            &\lim_{\xi \to \infty} V_0 = c(t)
+          \end{align*}
+          The solution to this equation is $V_0 = c(t)$, and $V$ remains constant in our transition layer.
+
+          By expanding $U$ asymptotically, we get the $O(1)$ equation
+          \begin{align*}
+            &0 = \frac{\partial^2 U_0}{\partial \xi^2} + \varphi'(t) \frac{\partial U_0}{\partial \xi} + f(U_0, V_0) \\
+            &\lim_{\xi \to -\infty} U_0 = 1+V_0 \\
+            &\lim_{\xi \to \infty} U_0 = 0
+          \end{align*}
+
+          Using our hint, this equation has a solution only when
+          \[ \varphi'(t) = \frac{1}{\sqrt{2}} (V_0 - 1) = \frac{1}{\sqrt{2}} (v_0 - 1) , \]
+          giving us the differential equation for the position of our transition layer.
 
       \end{enumerate}
 
@@ -209,8 +282,55 @@
 
       \begin{enumerate}
         \item
+          Expanding $u$ and $w$, we get from the $O \left( \frac{1}{\varepsilon} \right)$ equation for $w$ that
+          \[ f(u_0) = 0 .\]
+          Therefore, $u_0 = 0, 1$ because of the form of $f$ and the instability of the zero at $u_0=\alpha$.
+
+          The $O(1)$ equations we get are
+          \begin{align*}
+            \frac{\partial u_0}{\partial t} &= \Delta w_0 \\
+            - w_0 &= f'(u_0) u_1
+          \end{align*}
 
         \item
+          Going through the same coordinate transformations done for the Allen-Cahn equation in class, we are able to express
+          \[ \frac{\partial u}{\partial t} = \frac{\partial \widehat{u}}{\partial t} - v \frac{\partial \widehat{u}}{\partial r} +
+          \frac{r}{1 + \kappa r} \frac{\partial v}{\partial s} \frac{\partial \widehat{u}}{\partial s} \]
+          and
+          \[ \Delta u = \frac{1}{1 + \kappa r} \left( \frac{\partial}{\partial r} (1 + \kappa r) \frac{\partial \widehat{u}}{\partial r} +
+          \frac{\partial}{\partial s} \left( \frac{1}{1 + \kappa r} \frac{\partial \widehat{u}}{\partial s} \right) \right) \]
+          and similarly for $w$.
+
+          Now we can rewrite our equations as
+          \begin{align*}
+            &\frac{\partial \widehat{u}}{\partial t} - v \frac{\partial \widehat{u}}{\partial r} +
+          \frac{r}{1 + \kappa r} \frac{\partial v}{\partial s} \frac{\partial \widehat{u}}{\partial s} \\
+          &\quad = \frac{1}{1 + \kappa r} \left( \frac{\partial}{\partial r} (1 + \kappa r) \frac{\partial \widehat{w}}{\partial r} +
+          \frac{\partial}{\partial s} \left( \frac{1}{1 + \kappa r} \frac{\partial \widehat{w}}{\partial s} \right) \right) \\
+          &-\widehat{w} = \varepsilon \left( \frac{1}{1 + \kappa r} \left( \frac{\partial}{\partial r} (1 + \kappa r) \frac{\partial \widehat{u}}{\partial r} +
+          \frac{\partial}{\partial s} \left( \frac{1}{1 + \kappa r} \frac{\partial \widehat{u}}{\partial s} \right) \right) \right) \\
+          &\quad \quad + \frac{1}{\varepsilon} f ( \widehat{u} )
+          \end{align*}
+
+          We introduce the inner layer coordinate
+          \[ r = \varepsilon \rho \]
+          and the inner layer solutions $U$ and $W$ satisfying
+          \[ U(\rho,s,t) = \widehat{u} (\varepsilon \rho, s, t), \widehat{u}(r,s,t) = U \left( \frac{\rho}{\varepsilon}, s, t \right) \]
+          and
+          \[ W(\rho,s,t) = \widehat{w} (\varepsilon \rho, s, t), \widehat{w}(r,s,t) = W \left( \frac{\rho}{\varepsilon}, s, t \right) \]
+
+          Plugging these solutions into our equations, we get
+          \begin{align*}
+            &\frac{\partial U}{\partial t} - \frac{1}{\varepsilon} v \frac{\partial U}{\partial \rho} +
+            \frac{\varepsilon \rho}{1 + \varepsilon \kappa \rho} \frac{\partial v}{\partial s} \frac{\partial U }{\partial s} \\
+            &\quad = \frac{1}{1 + \varepsilon \kappa \rho} \left( \frac{1}{\varepsilon} \frac{\partial}{\partial \rho} (1 + \varepsilon \kappa \rho)
+            \frac{1}{\varepsilon} \frac{\partial W}{\partial \rho} +
+            \frac{\partial}{\partial s} \left( \frac{1}{1 + \varepsilon \kappa \rho} \frac{\partial W}{\partial s} \right) \right) \\
+            &-W = \varepsilon \left( \frac{1}{1 + \varepsilon \kappa \rho} \left( \frac{1}{\varepsilon} \frac{\partial}{\partial \rho} (1 +
+            \varepsilon \kappa \rho) \frac{\partial U}{\partial r} +
+            \frac{\partial}{\partial s} \left( \frac{1}{1 + \varepsilon \kappa \rho} \frac{\partial U}{\partial s} \right) \right) \right) \\
+            &\quad \quad + \frac{1}{\varepsilon} f ( U )
+          \end{align*}
 
         \item
 
