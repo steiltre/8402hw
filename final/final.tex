@@ -217,6 +217,8 @@
 
     \end{solution}
 
+    \pagebreak
+
   \item
     \begin{problem}
       Consider the system:
@@ -331,6 +333,8 @@
       \end{enumerate}
 
     \end{solution}
+
+    \pagebreak
 
   \item
     \begin{problem}
@@ -638,7 +642,7 @@
           \end{align*}
           where we have used the fact that $u_0 = v_0 = w_0 = 0$.
 
-          Because of the zero boundary conditions and the fact that $\partial_Z w_1 = 0$, we know $w_1 = 0$. We also know
+          Because of the zero boundary conditions and the fact that $\partial_Z w_1 = 0$, we know $w_1 = 0$. We also know from \eqref{eqn:sol4_1} that
           \begin{align*}
             0 &= \partial_Z w_1 \\
             &= \frac{1}{\mu} ( p_0 + c(x,y) )
@@ -665,6 +669,18 @@
           Once again by using the boundary conditions and $\partial_Z w_2 = 0$, we get $w_2 = 0$.
 
         \item
+          We see from the $O(1)$ equations that $p_0, u_2,$ and $v_2$ satisfy
+          \begin{align*}
+            \mu \partial_{ZZ} u_2 &= \partial_x p_0 \\
+            \mu \partial_{ZZ} v_2 &= \partial_y p_0
+          \end{align*}
+
+          Using the fact that we know $p_0$ is independent of $Z$, we know
+          \begin{align*}
+            \mu \partial_{ZZ} u_2 &= - \partial_x c(x,y) \\
+            \mu \partial_{ZZ} v_2 &= - \partial_y c(x,y)
+          \end{align*}
+
 
       \end{enumerate}
 
