@@ -506,14 +506,31 @@
           \end{align*}
           as desired.
 
-          Our assumption that $W_0$ is constant should also be true. We have the $O \left( \frac{1}{\varepsilon^2} \right)$ equation
+          Our assumption that $W_0$ is constant is in fact true. We have the $O \left( \frac{1}{\varepsilon^2} \right)$ equation
           \[ 0 = \frac{\partial^2 W_0}{\partial \rho^2} \]
           which has solutions $W_0 = c(s,t) \rho + d(s,t)$. From our matching conditions, we must have $W_0$ taking on finite values at $-\infty$ and
           $\infty$. The only way this can happen is if $c = 0$ and $w_-=w_+=d(s,t)$.
 
+          With this, we have from \eqref{eqn:sol3_2},
+          \[ -v \frac{\partial U_0}{\partial \rho} = \frac{\partial^2 W_1}{\partial \rho^2} .\]
+
+          Integrating from $-\infty$ to $\infty$ in $\rho$ and using the fact that $v$ only depends on $s$ and $t$, we have
+          \begin{align*}
+            v &= -v \left( \lim_{\rho \to \infty} U_0(\rho) - \lim_{\rho \to -\infty} U_0(\rho) \right) \\
+            &= -v \int_{-\infty}^{\infty} \frac{\partial U_0}{\partial \rho} d\rho \\
+            &= \int_{-\infty}^{\infty} \frac{\partial^2 W_1}{\partial \rho^2} d\rho \\
+            &= \lim_{\rho \to \infty} \frac{\partial W_1}{\partial \rho} (\rho) - \lim_{\rho \to -\infty} \frac{\partial W_1}{\partial \rho}(\rho)
+          \end{align*}
+
+          By using the matching conditions that $W_1$ matches $w_0$ and the fact that $\rho$ is our coordinate that is tangent to $\Gamma$ (so it
+          points in the direction of $\nu$) this tells us
+          \[ v = \left[ \frac{\partial w_0}{\partial \nu} \right] .\]
+
       \end{enumerate}
 
     \end{solution}
+
+    \pagebreak
 
   \item
       \begin{problem}
